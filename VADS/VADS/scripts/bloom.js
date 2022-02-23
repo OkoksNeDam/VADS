@@ -5,11 +5,6 @@
     // Div, which contains the input data of Bloom filter.
     let elementsPlaygroundCap = document.getElementById('elements-playground-cap');
 
-    // Creating shell for filter.
-    createFilterArray();
-    // Creating shell for hash functions.
-    createHashFunctions();
-
     // Creating settings for input filter size.
     let inputFilterSize = createInputFilterSize(elementsPlaygroundCap);
 
@@ -19,31 +14,92 @@
     // Add button for building the filter.
     let buttonBuildFilter = createButtonBuldingTheFilter(elementsPlaygroundCap);
 
-    // Change filter if button was clicked.
+    addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterSize, inputNumberOfHash);
+}
+
+function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterSize, inputNumberOfHash) {
     buttonBuildFilter.addEventListener('click', () => {
         if (!Number.isInteger(inputFilterSize.value) && inputFilterSize.value <= 13 && inputFilterSize.value >= 0 &&
             !Number.isInteger(inputNumberOfHash.value && inputNumberOfHash.value <= 13 && inputNumberOfHash.value >= 0)) {
+            // Reset the main playground.
+            document.getElementById('playground-main').innerHTML = '';
+
+            // Creating shell for filter.
+            createFilterArray();
+            // Creating shell for hash functions.
+            createHashFunctions();
+
             buildBloomFilter(inputFilterSize.value);
             buildListOfHashFunctions(inputNumberOfHash.value);
             createButtonAddElement();
             createInputAddElement();
             createButtonCheckElementAvailability();
+
             // Creating universal hash functions.
             let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
             document.getElementById('add-element-button').onclick = () => {
-                changeValuesInFiltersCells(hashFunctions, inputFilterSize.value);
+                changeValuesInCellsAfterAddingElement(hashFunctions, inputFilterSize.value);
+            }
+            document.getElementById('check-element-availability-button').onclick = () => {
+                checkElementAvailability(hashFunctions, inputFilterSize.value);
             }
         }
-    })
+    });
 }
 
+/**
+ * Сheck if there is an element in the filter.
+ * @param {Array} hashFunctions 
+ * @param {number} filterSize 
+ */
+function checkElementAvailability(hashFunctions, filterSize) {
+    let value = document.getElementById('add-element-input').value;
+    document.getElementById('add-element-input').value = '';
+    let filterCells = document.getElementById('filter-array-div').childNodes;
+    // True if all result values were in filter.
+    let wasInFilter = true;
+    hashFunctions.forEach(func => {
+        let filterIndex = func(value) % filterSize;
+        let index = 0;
+        // Run on each function in array of has functions.
+        for (let cell of filterCells) {
+            if (index == filterIndex) {
+                if (cell.firstChild.innerHTML == '0') {
+                    cell.classList.add('red-background');
+                    setTimeout(() => {
+                        cell.classList.remove('red-background');
+                    }, 1200);
+                    wasInFilter = false;
+                }
+                break;
+            }
+            ++index;
+        }
+    });
+    if (wasInFilter) {
+        document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
+    } else {
+        document.getElementById('checking-element-result').innerHTML = "Definitely <b>not</b> in the filter";
+    }
+    setTimeout(() => {
+        document.getElementById('checking-element-result').innerHTML = "";
+    }, 2000);
+}
 
+/**
+ * Creat button that checks if element is in filter.
+ */
 function createButtonCheckElementAvailability() {
     let buttonCheckAvailability = document.createElement('button');
     buttonCheckAvailability.className = 'check-element-availability-button';
     buttonCheckAvailability.id = 'check-element-availability-button';
     buttonCheckAvailability.innerHTML = 'Check availability';
     document.getElementById('playground-main').appendChild(buttonCheckAvailability);
+
+    let resultOfChecking = document.createElement('span');
+    resultOfChecking.className = 'checking-element-result';
+    resultOfChecking.id = 'checking-element-result';
+    document.getElementById('playground-main').appendChild(resultOfChecking);
 }
 
 /**
@@ -51,13 +107,17 @@ function createButtonCheckElementAvailability() {
  * @param {Array} hashFunctions 
  * @param {number} filterSize 
  */
-function changeValuesInFiltersCells(hashFunctions, filterSize) {
+function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
     let value = document.getElementById('add-element-input').value;
+    document.getElementById('add-element-input').value = '';
     let filterCells = document.getElementById('filter-array-div').childNodes;
+    // Run on each function in array of has functions.
     hashFunctions.forEach(func => {
         let filterIndex = func(value) % filterSize;
         let index = 0;
+        // Run on each cell in filter.
         for (let cell of filterCells) {
+            // Change cell value to '1' in cell, which index is 'filterIndex'.
             if (index == filterIndex) {
                 cell.firstChild.innerHTML = '1';
                 cell.classList.add('highlighted');
@@ -161,8 +221,6 @@ function createButtonBuldingTheFilter(elementsPlaygroundCap) {
 function buildBloomFilter(filterSize) {
     // Div that contains cells for Bloom filter
     let filterArrayDiv = document.getElementById('filter-array-div');
-    // Reset values for filter.
-    filterArrayDiv.innerHTML = '';
     // Every new cell would be next this position.
     let cellShift = ((filterArrayDiv.clientHeight - 50 * filterSize) / 2);
     for (let index = 0; index < filterSize; ++index) {
@@ -187,7 +245,6 @@ function buildBloomFilter(filterSize) {
  */
 function buildListOfHashFunctions(numberOfHash) {
      let hashFunctionsList = document.getElementById('hash-functions-list-div');
-     hashFunctionsList.innerHTML = '';
      // Every new hash function would be next this position.
      let hashFunctionShift = ((hashFunctionsList.clientHeight - 50 * numberOfHash) / 2);
      for (let index = 0; index < numberOfHash; ++index) {

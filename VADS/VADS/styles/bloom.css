@@ -97,6 +97,15 @@
     margin-bottom: -45px;
 }
 
+.checking-element-result {
+    position: absolute;
+    left: 10px;
+    bottom: 50%;
+    height: 30px;
+    margin-bottom: -90px;
+    color: green;
+}
+
 .add-element-input {
     position: absolute;
     left: 10px;
@@ -107,4 +116,8 @@
 
 .highlighted {
     background-color: aqua;
+}
+
+.red-background {
+    background-color: red;
 }
