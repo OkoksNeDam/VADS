@@ -27,6 +27,7 @@
             buildListOfHashFunctions(inputNumberOfHash.value);
             createButtonAddElement();
             createInputAddElement();
+            createButtonCheckElementAvailability();
             // Creating universal hash functions.
             let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
             document.getElementById('add-element-button').onclick = () => {
@@ -36,6 +37,20 @@
     })
 }
 
+
+function createButtonCheckElementAvailability() {
+    let buttonCheckAvailability = document.createElement('button');
+    buttonCheckAvailability.className = 'check-element-availability-button';
+    buttonCheckAvailability.id = 'check-element-availability-button';
+    buttonCheckAvailability.innerHTML = 'Check availability';
+    document.getElementById('playground-main').appendChild(buttonCheckAvailability);
+}
+
+/**
+ * When adding an item, change the values in the cells.
+ * @param {Array} hashFunctions 
+ * @param {number} filterSize 
+ */
 function changeValuesInFiltersCells(hashFunctions, filterSize) {
     let value = document.getElementById('add-element-input').value;
     let filterCells = document.getElementById('filter-array-div').childNodes;

@@ -85,7 +85,16 @@
     top: 50%;
     width: 105.5px;
     height: 30px;
-    margin-top: -40px;
+    margin-top: -52px;
+}
+
+.check-element-availability-button {
+    position: absolute;
+    left: 10px;
+    bottom: 50%;
+    width: 105.5px;
+    height: 30px;
+    margin-bottom: -45px;
 }
 
 .add-element-input {
@@ -93,6 +102,7 @@
     left: 10px;
     top: 50%;
     width: 100px;
+    margin-top: -13px;
 }
 
 .highlighted {
