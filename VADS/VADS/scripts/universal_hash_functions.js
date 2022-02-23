@@ -7,11 +7,11 @@ class UniversalHashFunctions {
      * @returns Array of hash functions.
      */
     generateFunctions() {
-        let p = 35742549198872617291353508656626642567;
+        let p = 9973;
         let functions = [];
         for (let index = 0; index < this.numberOfFunctions; ++index) {
-            let a = Math.random() * (p - 1) + 1;
-            let b = Math.random() * p;
+            let a = Math.floor(Math.random() * (p - 1) + 1);
+            let b = Math.floor(Math.random() * p);
             let newFunction = value => {
                 return (a * value + b) % p;
             }

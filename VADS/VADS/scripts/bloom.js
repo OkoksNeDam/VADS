@@ -45,7 +45,7 @@ function changeValuesInFiltersCells(hashFunctions, filterSize) {
         for (let cell of filterCells) {
             if (index == filterIndex) {
                 cell.firstChild.innerHTML = '1';
-                cell.firstChild.classList.add = 'highlighted';
+                cell.classList.add('highlighted');
                 break;
             }
             ++index;
