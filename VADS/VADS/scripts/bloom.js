@@ -123,24 +123,51 @@ function createButtonCheckElementAvailability() {
  * @param {number} filterSize number of cells in filter
  */
 function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
-    let value = document.getElementById('add-element-input').value;
-    document.getElementById('add-element-input').value = '';
+    ctx = document.getElementById("canvas").getContext("2d");
+
+    let inputAddElement = document.getElementById('add-element-input');
+    let value = inputAddElement.value;
+    inputAddElement.value = '';
     let filterCells = document.getElementById('filter-array-div').childNodes;
-    // Run on each function in array of has functions.
-    hashFunctions.forEach(func => {
-        let filterIndex = func(value)[0] % filterSize;
-        let index = 0;
-        // Run on each cell in filter.
-        for (let cell of filterCells) {
-            // Change cell value to '1' in cell, which index is 'filterIndex'.
-            if (index == filterIndex) {
-                cell.firstChild.innerHTML = '1';
-                cell.classList.add('highlighted');
-                break;
+
+    let indexForFunctionDivs = 0;
+
+    let timerId = setInterval(() => {
+            if (indexForFunctionDivs == hashFunctions.length) {
+                clearInterval(timerId);
             }
-            ++index;
-        }
-    });
+            let func = hashFunctions[indexForFunctionDivs];
+
+            let filterIndex = func(value)[0] % filterSize;
+
+            // Coordinates for the value input field.
+            let rectangleInputCoordinates = inputAddElement.getBoundingClientRect();
+            let fromInputStartX = rectangleInputCoordinates.left + inputAddElement.clientWidth + 10;
+            let fromInputStartY = rectangleInputCoordinates.top + inputAddElement.height / 2;
+
+            let hashFunctionDiv = document.getElementById('hash-functions-list-div').childNodes[indexForFunctionDivs];
+            // Coordinates for the div that the arrow goes to.
+            let rectangleFunctionDivCoordinates = hashFunctionDiv.getBoundingClientRect();
+            let fromInputEndX = rectangleFunctionDivCoordinates.left - 20;
+            let fromInputEndY = rectangleFunctionDivCoordinates.top - 5 + hashFunctionDiv.clientHeight / 2;
+
+            ctx.beginPath();
+            drawAnArrow(ctx, fromInputStartX, fromInputStartY, fromInputEndX, fromInputEndY);
+            ctx.stroke();
+
+            let indexForCell = 0;
+            // Run on each cell in filter.
+            for (let cell of filterCells) {
+                // Change cell value to '1' in cell, which index is 'filterIndex'.
+                if (indexForCell == filterIndex) {
+                    cell.firstChild.innerHTML = '1';
+                    cell.classList.add('highlighted');
+                    break;
+                }
+                ++indexForCell;
+            }
+            ++indexForFunctionDivs;
+    }, 2000);
 }
 
 /**
