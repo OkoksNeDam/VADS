@@ -240,9 +240,9 @@ function buildBloomFilter(filterSize) {
 }
 
 /**
- * Building list of hash functions.
- * @param {number} numberOfHash 
- * @param {Array} hashFunctions
+ * A sequence of div blocks is drawn, each of which is responsible for a hash function.
+ * @param {number} numberOfHash amount of hash functions
+ * @param {Array} hashFunctions array of hash functions
  */
 function buildListOfHashFunctions(numberOfHash, hashFunctions) {
      let hashFunctionsList = document.getElementById('hash-functions-list-div');
