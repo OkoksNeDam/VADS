@@ -1,8 +1,8 @@
 /**
- * Building an interface in the cap of playground for the user: some input for Bloom filter.
+ * Building an interface for the Bloom filter header.
  */
  function fillTheCapBloomFilter() {
-    // Div, which contains the input data of Bloom filter.
+    // DIV containing all header elements.
     let elementsPlaygroundCap = document.getElementById('elements-playground-cap');
 
     // Creating settings for input filter size.
@@ -30,6 +30,10 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createHashFunctions();
 
             buildBloomFilter(inputFilterSize.value);
+
+            // Elements to be added to the bloom filter.
+            let addedElementsList = [];
+
             // Creating universal hash functions.
             let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
             buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions);
@@ -38,10 +42,13 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createButtonCheckElementAvailability();
 
             document.getElementById('add-element-button').onclick = () => {
-                changeValuesInCellsAfterAddingElement(hashFunctions, inputFilterSize.value);
+                if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
+                    addedElementsList.push(document.getElementById('add-element-input').value);
+                    changeValuesInCellsAfterAddingElement(hashFunctions, inputFilterSize.value);
+                }
             }
             document.getElementById('check-element-availability-button').onclick = () => {
-                checkElementAvailability(hashFunctions, inputFilterSize.value);
+                checkElementAvailability(hashFunctions, inputFilterSize.value, addedElementsList);
             }
         }
     });
@@ -49,10 +56,11 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 
 /**
  * Сheck if there is an element in the filter.
- * @param {Array} hashFunctions 
- * @param {number} filterSize 
+ * @param {Array} hashFunctions list of hash functions
+ * @param {number} filterSize number of cells in filter
+ * @param {Object} addedElementsList list of elements that were added to filter
  */
-function checkElementAvailability(hashFunctions, filterSize) {
+function checkElementAvailability(hashFunctions, filterSize, addedElementsList) {
     let value = document.getElementById('add-element-input').value;
     document.getElementById('add-element-input').value = '';
     let filterCells = document.getElementById('filter-array-div').childNodes;
@@ -77,7 +85,12 @@ function checkElementAvailability(hashFunctions, filterSize) {
         }
     });
     if (wasInFilter) {
-        document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
+        // If the element was never added but the result is positive.
+        if (!addedElementsList.includes(value)) {
+            document.getElementById('checking-element-result').innerHTML = "<b>False positive</b> result";
+        } else {
+            document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
+        }
     } else {
         document.getElementById('checking-element-result').innerHTML = "Definitely <b>not</b> in the filter";
     }
@@ -104,8 +117,10 @@ function createButtonCheckElementAvailability() {
 
 /**
  * When adding an item, change the values in the cells.
- * @param {Array} hashFunctions 
- * @param {number} filterSize 
+ * If the element was added to the filter, change the value
+ * of the corresponding cells by one.
+ * @param {Array} hashFunctions list of hash functions
+ * @param {number} filterSize number of cells in filter
  */
 function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
     let value = document.getElementById('add-element-input').value;
@@ -129,7 +144,8 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
 }
 
 /**
- * Input element to add to filter.
+ * Adding a field to the playground for entering an element
+ * that will be added to the filter.
  */
 function createInputAddElement() {
     let inputAddElement = document.createElement('input');
@@ -140,7 +156,8 @@ function createInputAddElement() {
 }
 
 /**
- * Button that adds element to filter.
+ * Adding a button to the playground, after clicking on
+ * which the element will be added to the filter.
  */
 function createButtonAddElement() {
     let buttonAddElement = document.createElement('button');
@@ -151,7 +168,8 @@ function createButtonAddElement() {
 }
 
 /**
- * Creating shell for hash functions.
+ * Creating a wrapper that will store a list of divs,
+ * each of which is associated with a specific hash function.
  */
 function createHashFunctions() {
     let hashFunctionsList = document.createElement('div');
@@ -161,7 +179,8 @@ function createHashFunctions() {
 }
 
 /**
- * Creating shell for filter.
+ * Creating a wrapper that will store a list of divs, 
+ * each of which is associated with a specific bloom filter cell.
  */
 function createFilterArray() {
     let filterArrayDiv = document.createElement('div');
@@ -171,9 +190,10 @@ function createFilterArray() {
 }
 
 /**
- * Creating settings for input filter size.
- * @param {object} elementsPlaygroundCap 
- * @returns Input size for filter.
+ * Creating an element that serves as an input field 
+ * for the element to be added to the bloom filter.
+ * @param {object} elementsPlaygroundCap div containing header elements
+ * @returns field for input nwe value
  */
 function createInputFilterSize(elementsPlaygroundCap) {
     let divFilterSize = document.createElement('div');
@@ -186,9 +206,10 @@ function createInputFilterSize(elementsPlaygroundCap) {
 }
 
 /**
- * Creating settings for input number of hesh.
- * @param {object} elementsPlaygroundCap 
- * @returns Input number of hesh for Bloom filter.
+ * Creating an element that serves as an input field 
+ * for number of hash functions.
+ * @param {object} elementsPlaygroundCap div containing header elements
+ * @returns field for input new number of hash functions
  */
 function createInputNumberOfHash(elementsPlaygroundCap) {
     let divNumberOfHesh = document.createElement('div');
@@ -201,8 +222,9 @@ function createInputNumberOfHash(elementsPlaygroundCap) {
 }
 
 /**
- * Creat button for building the filter.
- * @param {object} elementsPlaygroundCap 
+ * Creating an element that serves as a button
+ * that builds interface for filter.
+ * @param {object} elementsPlaygroundCap div containing header elements
  * @returns Button that builds filter.
  */
 function createButtonBuldingTheFilter(elementsPlaygroundCap) {
@@ -215,8 +237,8 @@ function createButtonBuldingTheFilter(elementsPlaygroundCap) {
 }
 
 /**
- * Building a Bloom filter size of filterSize.
- * @param {number} filterSize Size of Bloom filter.
+ * Draws divs that match bloom filter cells.
+ * @param {number} filterSize size of Bloom filter
  */
 function buildBloomFilter(filterSize) {
     // Div that contains cells for Bloom filter
