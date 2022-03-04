@@ -30,13 +30,13 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createHashFunctions();
 
             buildBloomFilter(inputFilterSize.value);
-            buildListOfHashFunctions(inputNumberOfHash.value);
+            // Creating universal hash functions.
+            let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
+            buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions);
             createButtonAddElement();
             createInputAddElement();
             createButtonCheckElementAvailability();
 
-            // Creating universal hash functions.
-            let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
             document.getElementById('add-element-button').onclick = () => {
                 changeValuesInCellsAfterAddingElement(hashFunctions, inputFilterSize.value);
             }
@@ -59,7 +59,7 @@ function checkElementAvailability(hashFunctions, filterSize) {
     // True if all result values were in filter.
     let wasInFilter = true;
     hashFunctions.forEach(func => {
-        let filterIndex = func(value) % filterSize;
+        let filterIndex = func(value)[0] % filterSize;
         let index = 0;
         // Run on each function in array of has functions.
         for (let cell of filterCells) {
@@ -113,7 +113,7 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
     let filterCells = document.getElementById('filter-array-div').childNodes;
     // Run on each function in array of has functions.
     hashFunctions.forEach(func => {
-        let filterIndex = func(value) % filterSize;
+        let filterIndex = func(value)[0] % filterSize;
         let index = 0;
         // Run on each cell in filter.
         for (let cell of filterCells) {
@@ -242,8 +242,9 @@ function buildBloomFilter(filterSize) {
 /**
  * Building list of hash functions.
  * @param {number} numberOfHash 
+ * @param {Array} hashFunctions
  */
-function buildListOfHashFunctions(numberOfHash) {
+function buildListOfHashFunctions(numberOfHash, hashFunctions) {
      let hashFunctionsList = document.getElementById('hash-functions-list-div');
      // Every new hash function would be next this position.
      let hashFunctionShift = ((hashFunctionsList.clientHeight - 50 * numberOfHash) / 2);
@@ -252,6 +253,9 @@ function buildListOfHashFunctions(numberOfHash) {
          let newHashFunction = document.createElement('div');
          newHashFunction.classList.add('hash-function-div');
          newHashFunction.style.top = hashFunctionShift + 'px';
+         newHashFunction.dataToggle = "tooltip";
+         let [a, b, p] = [hashFunctions[index](1)[1], hashFunctions[index](1)[2], hashFunctions[index](1)[3]];
+         newHashFunction.title = `(${a}x + ${b} mod(${p})) mod(${numberOfHash})`;
          // Text in the cell.
          let innerTextHashFunction = document.createElement('div');
          innerTextHashFunction.className = 'hash-function-div-inner-text';

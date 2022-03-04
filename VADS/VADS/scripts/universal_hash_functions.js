@@ -7,13 +7,13 @@ class UniversalHashFunctions {
      * @returns Array of hash functions.
      */
     generateFunctions() {
-        let p = 9973;
+        let p = 115249;
         let functions = [];
         for (let index = 0; index < this.numberOfFunctions; ++index) {
             let a = Math.floor(Math.random() * (p - 1) + 1);
             let b = Math.floor(Math.random() * p);
             let newFunction = value => {
-                return (a * value + b) % p;
+                return [(a * value + b) % p, a, b, p];
             }
             functions[index] = newFunction;
         }
