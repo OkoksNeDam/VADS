@@ -61,41 +61,85 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
  * @param {Object} addedElementsList list of elements that were added to filter
  */
 function checkElementAvailability(hashFunctions, filterSize, addedElementsList) {
-    let value = document.getElementById('add-element-input').value;
-    document.getElementById('add-element-input').value = '';
+    ctx = document.getElementById("canvas").getContext("2d");
+
+    let inputAddElement = document.getElementById('add-element-input');
+    let value = inputAddElement.value;
+    inputAddElement.value = '';
     let filterCells = document.getElementById('filter-array-div').childNodes;
     // True if all result values were in filter.
     let wasInFilter = true;
-    hashFunctions.forEach(func => {
+    let indexForFunctionDivs = 0;
+    let timerId = setInterval(() => {
+        if (indexForFunctionDivs == hashFunctions.length) {
+            if (wasInFilter) {
+                // If the element was never added but the result is positive.
+                if (!addedElementsList.includes(value)) {
+                    document.getElementById('checking-element-result').innerHTML = "<b>False positive</b> result";
+                } else {
+                    document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
+                }
+            } else {
+                document.getElementById('checking-element-result').innerHTML = "Definitely <b>not</b> in the filter";
+            }
+            setTimeout(() => {
+                document.getElementById('checking-element-result').innerHTML = "";
+            }, 2000);
+            clearTimeout(timerId);
+        }
+        let func = hashFunctions[indexForFunctionDivs];
         let filterIndex = func(value)[0] % filterSize;
-        let index = 0;
+
+        // Coordinates for the value input field.
+        let rectangleInputCoordinates = inputAddElement.getBoundingClientRect();
+        let fromInputStartX = rectangleInputCoordinates.left + inputAddElement.clientWidth + 10;
+        let fromInputStartY = rectangleInputCoordinates.top + inputAddElement.height / 2;
+
+        let currentHashFunctionDiv = document.getElementById('hash-functions-list-div').childNodes[indexForFunctionDivs];
+        // Coordinates for the div that the arrow goes to.
+        let rectangleFunctionDivCoordinates = currentHashFunctionDiv.getBoundingClientRect();
+        let fromInputEndX = rectangleFunctionDivCoordinates.left - 20;
+        let fromInputEndY = rectangleFunctionDivCoordinates.top - 5 + currentHashFunctionDiv.clientHeight / 2;
+
+        ctx.beginPath();
+        drawAnArrow(ctx, fromInputStartX, fromInputStartY, fromInputEndX, fromInputEndY);
+        ctx.stroke();
+
+        let indexForFilterCells = 0;
         // Run on each function in array of has functions.
         for (let cell of filterCells) {
-            if (index == filterIndex) {
-                if (cell.firstChild.innerHTML == '0') {
-                    cell.classList.add('red-background');
-                    setTimeout(() => {
-                        cell.classList.remove('red-background');
-                    }, 1200);
-                    wasInFilter = false;
-                }
+            if (indexForFilterCells == filterIndex) {
+                let fromFunctionDivStartX = rectangleFunctionDivCoordinates.left + currentHashFunctionDiv.clientWidth + 5;
+                let fromFunctionDivStartY = rectangleFunctionDivCoordinates.top + currentHashFunctionDiv.clientHeight / 2;
+
+                let rectangleFilterCellCoordinates = cell.getBoundingClientRect();
+                let fromFunctionDivEndX = rectangleFilterCellCoordinates.left - 20;
+                let fromFunctionDivEndY = rectangleFilterCellCoordinates.top - 5 + cell.clientHeight / 2;
+
+                setTimeout(() => {
+                    ctx.beginPath();
+                    drawAnArrow(ctx, fromFunctionDivStartX, fromFunctionDivStartY, fromFunctionDivEndX, fromFunctionDivEndY);
+                    ctx.stroke();
+                    if (cell.firstChild.innerHTML == '0') {
+                        cell.classList.add('red-background');
+                        setTimeout(() => {
+                            cell.classList.remove('red-background');
+                            ctx.clearRect(0, 0, 1680, 962);
+                        }, 700);
+                        wasInFilter = false;
+                    } else {
+                        cell.classList.add('green-background');
+                        setTimeout(() => {
+                            cell.classList.remove('green-background');
+                            ctx.clearRect(0, 0, 1680, 962);
+                        }, 700);
+                    }
+                }, 1000);
                 break;
             }
-            ++index;
+            ++indexForFilterCells;
         }
-    });
-    if (wasInFilter) {
-        // If the element was never added but the result is positive.
-        if (!addedElementsList.includes(value)) {
-            document.getElementById('checking-element-result').innerHTML = "<b>False positive</b> result";
-        } else {
-            document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
-        }
-    } else {
-        document.getElementById('checking-element-result').innerHTML = "Definitely <b>not</b> in the filter";
-    }
-    setTimeout(() => {
-        document.getElementById('checking-element-result').innerHTML = "";
+        ++indexForFunctionDivs;
     }, 2000);
 }
 
@@ -134,8 +178,10 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
 
     let timerId = setInterval(() => {
             if (indexForFunctionDivs == hashFunctions.length) {
-                clearInterval(timerId);
+                console.log("clear!");
+                clearTimeout(timerId);
             }
+            console.log("New func!");
             let func = hashFunctions[indexForFunctionDivs];
 
             let filterIndex = func(value)[0] % filterSize;
@@ -145,11 +191,11 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
             let fromInputStartX = rectangleInputCoordinates.left + inputAddElement.clientWidth + 10;
             let fromInputStartY = rectangleInputCoordinates.top + inputAddElement.height / 2;
 
-            let hashFunctionDiv = document.getElementById('hash-functions-list-div').childNodes[indexForFunctionDivs];
+            let currentHashFunctionDiv = document.getElementById('hash-functions-list-div').childNodes[indexForFunctionDivs];
             // Coordinates for the div that the arrow goes to.
-            let rectangleFunctionDivCoordinates = hashFunctionDiv.getBoundingClientRect();
+            let rectangleFunctionDivCoordinates = currentHashFunctionDiv.getBoundingClientRect();
             let fromInputEndX = rectangleFunctionDivCoordinates.left - 20;
-            let fromInputEndY = rectangleFunctionDivCoordinates.top - 5 + hashFunctionDiv.clientHeight / 2;
+            let fromInputEndY = rectangleFunctionDivCoordinates.top - 5 + currentHashFunctionDiv.clientHeight / 2;
 
             ctx.beginPath();
             drawAnArrow(ctx, fromInputStartX, fromInputStartY, fromInputEndX, fromInputEndY);
@@ -160,8 +206,23 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
             for (let cell of filterCells) {
                 // Change cell value to '1' in cell, which index is 'filterIndex'.
                 if (indexForCell == filterIndex) {
-                    cell.firstChild.innerHTML = '1';
-                    cell.classList.add('highlighted');
+                    let fromFunctionDivStartX = rectangleFunctionDivCoordinates.left + currentHashFunctionDiv.clientWidth + 5;
+                    let fromFunctionDivStartY = rectangleFunctionDivCoordinates.top + currentHashFunctionDiv.clientHeight / 2;
+
+                    let rectangleFilterCellCoordinates = cell.getBoundingClientRect();
+                    let fromFunctionDivEndX = rectangleFilterCellCoordinates.left - 20;
+                    let fromFunctionDivEndY = rectangleFilterCellCoordinates.top - 5 + cell.clientHeight / 2;
+
+                    setTimeout(() => {
+                        ctx.beginPath();
+                        drawAnArrow(ctx, fromFunctionDivStartX, fromFunctionDivStartY, fromFunctionDivEndX, fromFunctionDivEndY);
+                        ctx.stroke();
+                        cell.firstChild.innerHTML = '1';
+                        cell.classList.add('highlighted');
+                        setTimeout(() => {
+                            ctx.clearRect(0, 0, 1680, 962);
+                        }, 700);
+                    }, 1000);
                     break;
                 }
                 ++indexForCell;
