@@ -41,6 +41,7 @@
     height: 50px;
     position: absolute;
     text-align: center;
+    background-color: rgb(122, 120, 120);
 }
 
 .hash-function-div {
@@ -49,16 +50,7 @@
     height: 50px;
     position: absolute;
     text-align: center;
-}
-
-.button-build-filter {
-    position: absolute;
-    font-size: 20px;
-    top: 20px;
-    right: 10px;
-    bottom: 20px;
-    width: 200px;
-    background-color: rgb(33, 250, 14);
+    background-color: rgb(122, 120, 120);
 }
 
 .filter-cell-div-inner-text {
@@ -84,8 +76,10 @@
     left: 10px;
     top: 50%;
     width: 105.5px;
-    height: 30px;
+    height: 35px;
     margin-top: -52px;
+    background-color: rgb(122, 120, 120);
+    font-size: 12px;
 }
 
 .check-element-availability-button {
@@ -93,8 +87,10 @@
     left: 10px;
     bottom: 50%;
     width: 105.5px;
-    height: 30px;
-    margin-bottom: -45px;
+    height: 35px;
+    margin-bottom: -46px;
+    background-color: rgb(122, 120, 120);
+    font-size: 12px;
 }
 
 .checking-element-result {
@@ -103,7 +99,7 @@
     bottom: 50%;
     height: 30px;
     margin-bottom: -90px;
-    color: green;
+    color: rgb(29, 221, 29);
 }
 
 .add-element-input {
@@ -112,10 +108,11 @@
     top: 50%;
     width: 100px;
     margin-top: -13px;
+    background-color: grey;
 }
 
 .highlighted {
-    background-color: aqua;
+    background-color: rgb(196, 190, 190);
 }
 
 .red-background {
@@ -123,5 +120,27 @@
 }
 
 .green-background {
-    background-color: green;
+    background-color: rgb(3, 245, 3);
+}
+
+.bloom-filter-picture {
+    border: 1px solid black;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    bottom: 5px;
+    right: 70%;
+    float: left;
+}
+
+.bloom-filter-header-carousel {
+    border: 1px solid black;
+    position: absolute;
+    top: 5px;
+    float: right;
+    right: 5px;
+    bottom: 5px;
+    left: 31%;
+    text-align: center;
+    line-height: 40px;
 }

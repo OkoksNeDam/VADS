@@ -1,0 +1,9 @@
+.button-build-filter {
+    position: absolute;
+    font-size: 20px;
+    top: 20px;
+    right: 10px;
+    bottom: 20px;
+    width: 200px;
+    background-color: rgb(13, 119, 3);
+}

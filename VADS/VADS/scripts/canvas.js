@@ -1,6 +1,6 @@
 function drawAnArrow(context, fromx, fromy, tox, toy) {
     context.lineWidth = 2;
-    context.strokeStyle = 'blue';
+    context.strokeStyle = 'khaki';
     var headlen = 7; // length of head in pixels
     var dx = tox - fromx;
     var dy = toy - fromy;

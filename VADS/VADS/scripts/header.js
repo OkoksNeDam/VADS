@@ -28,6 +28,7 @@
     divFilterSize.innerHTML = 'Filter size: ';
     divFilterSize.className = 'div-filter-size';
     let inputFilterSize = document.createElement('input');
+    inputFilterSize.style = "background-color: rgb(122, 120, 120)";
     inputFilterSize.placeholder = 'your number';
     divFilterSize.appendChild(inputFilterSize);
     elementsPlaygroundCap.appendChild(divFilterSize);
@@ -45,6 +46,7 @@ function createInputNumberOfHash(elementsPlaygroundCap) {
     divNumberOfHesh.innerHTML = 'Number of hesh: ';
     divNumberOfHesh.className = 'div-hesh-number';
     let inputNumberOfHesh = document.createElement('input');
+    inputNumberOfHesh.style = "background-color: rgb(122, 120, 120)";
     inputNumberOfHesh.placeholder = 'your number';
     divNumberOfHesh.appendChild(inputNumberOfHesh);
     elementsPlaygroundCap.appendChild(divNumberOfHesh);
