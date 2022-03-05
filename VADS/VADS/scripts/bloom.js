@@ -52,6 +52,22 @@ function checkElementAvailability(hashFunctions, filterSize, addedElementsList) 
     let wasInFilter = true;
     let indexForFunctionDivs = 0;
     let timerId = setInterval(() => {
+        if (indexForFunctionDivs == hashFunctions.length) {
+            if (wasInFilter) {
+                // If the element was never added but the result is positive.
+                if (!addedElementsList.includes(value)) {
+                    document.getElementById('checking-element-result').innerHTML = "<b>False positive</b> result";
+                } else {
+                    document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
+                }
+            } else {
+                document.getElementById('checking-element-result').innerHTML = "Definitely <b>not</b> in the filter";
+            }
+            setTimeout(() => {
+                document.getElementById('checking-element-result').innerHTML = "";
+            }, 2000);
+            clearTimeout(timerId);
+        }
         let func = hashFunctions[indexForFunctionDivs];
         let filterIndex = func(value)[0] % filterSize;
 
@@ -111,22 +127,6 @@ function checkElementAvailability(hashFunctions, filterSize, addedElementsList) 
             ++indexForFilterCells;
         }
         ++indexForFunctionDivs;
-        if (indexForFunctionDivs == hashFunctions.length) {
-            if (wasInFilter) {
-                // If the element was never added but the result is positive.
-                if (!addedElementsList.includes(value)) {
-                    document.getElementById('checking-element-result').innerHTML = "<b>False positive</b> result";
-                } else {
-                    document.getElementById('checking-element-result').innerHTML = "Can't say for sure";
-                }
-            } else {
-                document.getElementById('checking-element-result').innerHTML = "Definitely <b>not</b> in the filter";
-            }
-            setTimeout(() => {
-                document.getElementById('checking-element-result').innerHTML = "";
-            }, 2000);
-            clearTimeout(timerId);
-        }
     }, document.getElementById('input-range-speed').value);
 }
 
