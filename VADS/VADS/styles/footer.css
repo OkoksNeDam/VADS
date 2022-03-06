@@ -7,3 +7,7 @@
 .input-range-speed {
     margin: 10px;
 }
+
+.input-range-speed:hover {
+    cursor: pointer;
+}

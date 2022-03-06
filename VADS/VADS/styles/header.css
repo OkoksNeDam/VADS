@@ -7,3 +7,7 @@
     width: 200px;
     background-color: rgb(13, 119, 3);
 }
+
+.button-build-filter:hover {
+    cursor: pointer;
+}
