@@ -156,3 +156,36 @@
     text-align: center;
     line-height: 40px;
 }
+
+.show-added-elements-button {
+    position: absolute;
+    float: right;
+    right: 10px;
+    top: 10px;
+    width: 200px;
+    height: 30px;
+    font-size: 13px;
+    background-color: rgb(122, 120, 120);
+}
+
+.show-added-elements-button:hover {
+    cursor: pointer;
+}
+
+.text-area-with-list-of-added-elements {
+    position: absolute;
+    float: right;
+    right: 10px;
+    top: 50px;
+    width: 194px;
+    font-size: 17px;
+    border: 1px solid #000;
+    bottom: 10px;
+    background-color: rgb(122, 120, 120);
+    resize: none;
+    pointer-events: none;
+}
+
+.hide-text-area {
+    display: none;
+}

@@ -21,10 +21,13 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createButtonAddElement();
             createInputAddElement();
             createButtonCheckElementAvailability();
+            createShowAddedElementsButton();
 
             document.getElementById('add-element-button').onclick = () => {
                 if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
                     addedElementsList.push(document.getElementById('add-element-input').value);
+                    document.getElementById('text-area-with-list-of-added-elements').innerHTML += 
+                                addedElementsList.length + ":  " + document.getElementById('add-element-input').value + "\n";
                 }
                 changeValuesInCellsAfterAddingElement(hashFunctions, inputFilterSize.value);
             }
@@ -33,6 +36,25 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             }
         }
     });
+}
+
+/**
+ * Creating a button to show items added to a filter
+ */
+function createShowAddedElementsButton() {
+    let showAddedElementsButton = document.createElement('button');
+    showAddedElementsButton.className = 'show-added-elements-button';
+    showAddedElementsButton.id = 'show-added-elements-button';
+    showAddedElementsButton.innerHTML = "Added elements";
+
+    let textAreaWithListOfAddedElements = document.createElement('textarea');
+    textAreaWithListOfAddedElements.className = 'text-area-with-list-of-added-elements';
+    textAreaWithListOfAddedElements.id = 'text-area-with-list-of-added-elements';
+    textAreaWithListOfAddedElements.classList.add('hide-text-area');
+
+    showAddedElementsButton.onclick = () => textAreaWithListOfAddedElements.classList.toggle('hide-text-area');
+    document.getElementById('playground-main').appendChild(showAddedElementsButton);
+    document.getElementById('playground-main').appendChild(textAreaWithListOfAddedElements);
 }
 
 /**
