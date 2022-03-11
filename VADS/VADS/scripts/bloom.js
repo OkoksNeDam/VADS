@@ -22,6 +22,7 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createInputAddElement();
             createButtonCheckElementAvailability();
             createShowAddedElementsButton();
+            createChangeFunctionParametersElements();
 
             document.getElementById('add-element-button').onclick = () => {
                 if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
@@ -39,6 +40,53 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 }
 
 /**
+ * Creates the elements needed to change the parameters of the function
+ */
+function createChangeFunctionParametersElements() {
+    let changeFunctionParametersButton = document.createElement('button');
+    changeFunctionParametersButton.className = 'change-function-parameters-button';
+    changeFunctionParametersButton.id = 'change-function-parameters-button';
+    changeFunctionParametersButton.innerHTML = "Change function parameters";
+
+    let numberOfFunctionToChangeInput = document.createElement('input');
+    numberOfFunctionToChangeInput.className = 'number-of-function-to-change-input';
+    numberOfFunctionToChangeInput.id = 'number-of-function-to-change-input';
+    numberOfFunctionToChangeInput.placeholder = "number of function";
+    numberOfFunctionToChangeInput.classList.toggle('hide-element');
+
+    let parameterAToChangeInput = document.createElement('input');
+    parameterAToChangeInput.className = 'a-parameter-to-change-input';
+    parameterAToChangeInput.id = 'a-parameter-to-change-input';
+    parameterAToChangeInput.placeholder = "'a' parameter";
+    parameterAToChangeInput.classList.toggle('hide-element');
+
+    let parameterBToChangeInput = document.createElement('input');
+    parameterBToChangeInput.className = 'b-parameter-to-change-input';
+    parameterBToChangeInput.id = 'b-parameter-to-change-input';
+    parameterBToChangeInput.placeholder = "'b' parameter";
+    parameterBToChangeInput.classList.toggle('hide-element');
+
+    let parameterPToChangeInput = document.createElement('input');
+    parameterPToChangeInput.className = 'p-parameter-to-change-input';
+    parameterPToChangeInput.id = 'p-parameter-to-change-input';
+    parameterPToChangeInput.placeholder = "'p' parameter";
+    parameterPToChangeInput.classList.toggle('hide-element');
+
+    changeFunctionParametersButton.onclick = () => {
+        numberOfFunctionToChangeInput.classList.toggle('hide-element');
+        parameterAToChangeInput.classList.toggle('hide-element');
+        parameterBToChangeInput.classList.toggle('hide-element');
+        parameterPToChangeInput.classList.toggle('hide-element');
+    }
+
+    document.getElementById('playground-main').appendChild(changeFunctionParametersButton);
+    document.getElementById('playground-main').appendChild(numberOfFunctionToChangeInput);
+    document.getElementById('playground-main').appendChild(parameterAToChangeInput);
+    document.getElementById('playground-main').appendChild(parameterBToChangeInput);
+    document.getElementById('playground-main').appendChild(parameterPToChangeInput);
+}
+
+/**
  * Creating a button to show items added to a filter
  */
 function createShowAddedElementsButton() {
@@ -50,9 +98,9 @@ function createShowAddedElementsButton() {
     let textAreaWithListOfAddedElements = document.createElement('textarea');
     textAreaWithListOfAddedElements.className = 'text-area-with-list-of-added-elements';
     textAreaWithListOfAddedElements.id = 'text-area-with-list-of-added-elements';
-    textAreaWithListOfAddedElements.classList.add('hide-text-area');
+    textAreaWithListOfAddedElements.classList.add('hide-element');
 
-    showAddedElementsButton.onclick = () => textAreaWithListOfAddedElements.classList.toggle('hide-text-area');
+    showAddedElementsButton.onclick = () => textAreaWithListOfAddedElements.classList.toggle('hide-element');
     document.getElementById('playground-main').appendChild(showAddedElementsButton);
     document.getElementById('playground-main').appendChild(textAreaWithListOfAddedElements);
 }

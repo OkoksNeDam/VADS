@@ -172,6 +172,17 @@
     cursor: pointer;
 }
 
+.change-function-parameters-button {
+    position: absolute;
+    float: right;
+    top: 10px;
+    right: 230px;
+    width: 200px;
+    height: 30px;
+    font-size: 13px;
+    background-color: rgb(122, 120, 120);
+}
+
 .text-area-with-list-of-added-elements {
     position: absolute;
     float: right;
@@ -186,6 +197,50 @@
     pointer-events: none;
 }
 
-.hide-text-area {
+.hide-element {
     display: none;
+}
+
+.number-of-function-to-change-input {
+    position: absolute;
+    float: right;
+    top: 50px;
+    right: 230px;
+    width: 194px;
+    height: 20px;
+    font-size: 13px;
+    background-color: rgb(122, 120, 120);
+}
+
+.a-parameter-to-change-input {
+    position: absolute;
+    float: right;
+    top: 84px;
+    right: 230px;
+    width: 194px;
+    height: 20px;
+    font-size: 13px;
+    background-color: rgb(122, 120, 120);
+}
+
+.b-parameter-to-change-input {
+    position: absolute;
+    float: right;
+    top: 119px;
+    right: 230px;
+    width: 194px;
+    height: 20px;
+    font-size: 13px;
+    background-color: rgb(122, 120, 120);
+}
+
+.p-parameter-to-change-input {
+    position: absolute;
+    float: right;
+    top: 154px;
+    right: 230px;
+    width: 194px;
+    height: 20px;
+    font-size: 13px;
+    background-color: rgb(122, 120, 120);
 }
