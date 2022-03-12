@@ -17,12 +17,27 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 
             // Creating universal hash functions.
             let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
+            createChangeFunctionParametersElements();
+            document.getElementById('accespt-changes-to-function-button').onclick = () => {
+                let numberOfFunction = document.getElementById('number-of-function-to-change-input').value;
+                let parameterA = document.getElementById('a-parameter-to-change-input').value;
+                let parameterB = document.getElementById('b-parameter-to-change-input').value;
+                let parameterP = document.getElementById('p-parameter-to-change-input').value;
+                document.getElementById('number-of-function-to-change-input').value = "";
+                document.getElementById('a-parameter-to-change-input').value = "";
+                document.getElementById('b-parameter-to-change-input').value = "";
+                document.getElementById('p-parameter-to-change-input').value = "";
+                let newFunction = (value) => {
+                    return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
+                }
+                hashFunctions[numberOfFunction - 1] = newFunction;
+                buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions, inputFilterSize.value);
+            }
             buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions, inputFilterSize.value);
             createButtonAddElement();
             createInputAddElement();
             createButtonCheckElementAvailability();
             createShowAddedElementsButton();
-            createChangeFunctionParametersElements();
 
             document.getElementById('add-element-button').onclick = () => {
                 if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
@@ -72,11 +87,18 @@ function createChangeFunctionParametersElements() {
     parameterPToChangeInput.placeholder = "'p' parameter";
     parameterPToChangeInput.classList.toggle('hide-element');
 
+    let acceptChangesToFunctionButton = document.createElement('button');
+    acceptChangesToFunctionButton.className = 'accespt-changes-to-function-button';
+    acceptChangesToFunctionButton.id = 'accespt-changes-to-function-button';
+    acceptChangesToFunctionButton.innerHTML = "Accept changes"
+    acceptChangesToFunctionButton.classList.toggle('hide-element');
+
     changeFunctionParametersButton.onclick = () => {
         numberOfFunctionToChangeInput.classList.toggle('hide-element');
         parameterAToChangeInput.classList.toggle('hide-element');
         parameterBToChangeInput.classList.toggle('hide-element');
         parameterPToChangeInput.classList.toggle('hide-element');
+        acceptChangesToFunctionButton.classList.toggle('hide-element');
     }
 
     document.getElementById('playground-main').appendChild(changeFunctionParametersButton);
@@ -84,6 +106,7 @@ function createChangeFunctionParametersElements() {
     document.getElementById('playground-main').appendChild(parameterAToChangeInput);
     document.getElementById('playground-main').appendChild(parameterBToChangeInput);
     document.getElementById('playground-main').appendChild(parameterPToChangeInput);
+    document.getElementById('playground-main').appendChild(acceptChangesToFunctionButton);
 }
 
 /**
@@ -369,6 +392,7 @@ function buildBloomFilter(filterSize) {
  */
 function buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize) {
      let hashFunctionsList = document.getElementById('hash-functions-list-div');
+     hashFunctionsList.innerHTML = "";
      // Every new hash function would be next this position.
      let hashFunctionShift = ((hashFunctionsList.clientHeight - 50 * numberOfHash) / 2);
      for (let index = 0; index < numberOfHash; ++index) {
