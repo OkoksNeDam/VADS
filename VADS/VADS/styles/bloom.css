@@ -159,9 +159,9 @@
 
 .show-added-elements-button {
     position: absolute;
-    float: right;
-    right: 10px;
-    top: 10px;
+    float: left;
+    left: 10px;
+    top: 208px;
     width: 200px;
     height: 30px;
     font-size: 13px;
@@ -174,9 +174,9 @@
 
 .change-function-parameters-button {
     position: absolute;
-    float: right;
-    top: 10px;
-    right: 230px;
+    float: left;
+    left: 10px;
+    bottom: 215px;
     width: 200px;
     height: 30px;
     font-size: 13px;
@@ -185,10 +185,11 @@
 
 .text-area-with-list-of-added-elements {
     position: absolute;
-    float: right;
-    right: 10px;
-    top: 50px;
+    float: left;
+    left: 10px;
+    top: 10px;
     width: 194px;
+    height: 175px;
     font-size: 17px;
     border: 1px solid #000;
     bottom: 10px;
@@ -203,9 +204,9 @@
 
 .number-of-function-to-change-input {
     position: absolute;
-    float: right;
-    top: 50px;
-    right: 230px;
+    float: left;
+    left: 10px;
+    bottom: 183px;
     width: 194px;
     height: 20px;
     font-size: 13px;
@@ -214,9 +215,9 @@
 
 .a-parameter-to-change-input {
     position: absolute;
-    float: right;
-    top: 84px;
-    right: 230px;
+    float: left;
+    left: 10px;
+    bottom: 150px;
     width: 194px;
     height: 20px;
     font-size: 13px;
@@ -226,8 +227,8 @@
 .b-parameter-to-change-input {
     position: absolute;
     float: right;
-    top: 119px;
-    right: 230px;
+    left: 10px;
+    bottom: 118px;
     width: 194px;
     height: 20px;
     font-size: 13px;
@@ -236,9 +237,9 @@
 
 .p-parameter-to-change-input {
     position: absolute;
-    float: right;
-    top: 154px;
-    right: 230px;
+    float: left;
+    left: 10px;
+    bottom: 85px;
     width: 194px;
     height: 20px;
     font-size: 13px;
@@ -247,9 +248,9 @@
 
 .accespt-changes-to-function-button {
     position: absolute;
-    float: right;
-    top: 190px;
-    right: 230px;
+    float: left;
+    left: 10px;
+    bottom: 45px;
     width: 200px;
     height: 30px;
     font-size: 13px;
@@ -258,9 +259,9 @@
 
 .change-parameters-of-function-randomly {
     position: absolute;
-    float: right;
-    top: 230px;
-    right: 230px;
+    float: left;
+    left: 10px;
+    bottom: 10px;
     width: 200px;
     height: 30px;
     font-size: 13px;
