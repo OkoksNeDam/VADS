@@ -255,3 +255,14 @@
     font-size: 13px;
     background-color: rgb(75, 87, 69);
 }
+
+.change-parameters-of-function-randomly {
+    position: absolute;
+    float: right;
+    top: 230px;
+    right: 230px;
+    width: 200px;
+    height: 30px;
+    font-size: 13px;
+    background-color: rgb(75, 87, 69);
+}

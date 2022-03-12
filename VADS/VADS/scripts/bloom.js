@@ -17,6 +17,7 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 
             // Creating universal hash functions.
             let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
+
             createChangeFunctionParametersElements();
             document.getElementById('accespt-changes-to-function-button').onclick = () => {
                 let numberOfFunction = document.getElementById('number-of-function-to-change-input').value;
@@ -27,7 +28,22 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
                 document.getElementById('a-parameter-to-change-input').value = "";
                 document.getElementById('b-parameter-to-change-input').value = "";
                 document.getElementById('p-parameter-to-change-input').value = "";
-                let newFunction = (value) => {
+                let newFunction = value => {
+                    return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
+                }
+                hashFunctions[numberOfFunction - 1] = newFunction;
+                buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions, inputFilterSize.value);
+            }
+            document.getElementById('change-parameters-of-function-randomly').onclick = () => {
+                let numberOfFunction = document.getElementById('number-of-function-to-change-input').value;
+                let parameterP = Math.floor(Math.random() * (100000) + 1);
+                let parameterA = Math.floor(Math.random() * (parameterP - 1) + 1);
+                let parameterB = Math.floor(Math.random() * parameterP);
+                document.getElementById('number-of-function-to-change-input').value = "";
+                document.getElementById('a-parameter-to-change-input').value = "";
+                document.getElementById('b-parameter-to-change-input').value = "";
+                document.getElementById('p-parameter-to-change-input').value = "";
+                let newFunction = value => {
                     return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
                 }
                 hashFunctions[numberOfFunction - 1] = newFunction;
@@ -55,43 +71,56 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 }
 
 /**
- * Creates the elements needed to change the parameters of the function
+ * Creates the elements needed to change the parameters of the function.
  */
 function createChangeFunctionParametersElements() {
+    // Shows/hides fields for changing function parameters.
     let changeFunctionParametersButton = document.createElement('button');
     changeFunctionParametersButton.className = 'change-function-parameters-button';
     changeFunctionParametersButton.id = 'change-function-parameters-button';
     changeFunctionParametersButton.innerHTML = "Change function parameters";
 
+    // The number of the function for which you want to change the parameters.
     let numberOfFunctionToChangeInput = document.createElement('input');
     numberOfFunctionToChangeInput.className = 'number-of-function-to-change-input';
     numberOfFunctionToChangeInput.id = 'number-of-function-to-change-input';
     numberOfFunctionToChangeInput.placeholder = "number of function";
     numberOfFunctionToChangeInput.classList.toggle('hide-element');
 
+    // New parameter 'a' for function.
     let parameterAToChangeInput = document.createElement('input');
     parameterAToChangeInput.className = 'a-parameter-to-change-input';
     parameterAToChangeInput.id = 'a-parameter-to-change-input';
     parameterAToChangeInput.placeholder = "'a' parameter";
     parameterAToChangeInput.classList.toggle('hide-element');
 
+    // New parameter 'b' for function.
     let parameterBToChangeInput = document.createElement('input');
     parameterBToChangeInput.className = 'b-parameter-to-change-input';
     parameterBToChangeInput.id = 'b-parameter-to-change-input';
     parameterBToChangeInput.placeholder = "'b' parameter";
     parameterBToChangeInput.classList.toggle('hide-element');
 
+    // New parameter 'p' for function.
     let parameterPToChangeInput = document.createElement('input');
     parameterPToChangeInput.className = 'p-parameter-to-change-input';
     parameterPToChangeInput.id = 'p-parameter-to-change-input';
     parameterPToChangeInput.placeholder = "'p' parameter";
     parameterPToChangeInput.classList.toggle('hide-element');
 
+    // When you click this button all parameters of function will change.
     let acceptChangesToFunctionButton = document.createElement('button');
     acceptChangesToFunctionButton.className = 'accespt-changes-to-function-button';
     acceptChangesToFunctionButton.id = 'accespt-changes-to-function-button';
-    acceptChangesToFunctionButton.innerHTML = "Accept changes"
+    acceptChangesToFunctionButton.innerHTML = "Accept changes";
     acceptChangesToFunctionButton.classList.toggle('hide-element');
+
+    // When you click this button all parameters of function will change randomly.
+    let changeParametersOfFunctionRandomly = document.createElement('button');
+    changeParametersOfFunctionRandomly.className = 'change-parameters-of-function-randomly';
+    changeParametersOfFunctionRandomly.id = 'change-parameters-of-function-randomly';
+    changeParametersOfFunctionRandomly.innerHTML = "Change randomly";
+    changeParametersOfFunctionRandomly.classList.toggle('hide-element');
 
     changeFunctionParametersButton.onclick = () => {
         numberOfFunctionToChangeInput.classList.toggle('hide-element');
@@ -99,6 +128,7 @@ function createChangeFunctionParametersElements() {
         parameterBToChangeInput.classList.toggle('hide-element');
         parameterPToChangeInput.classList.toggle('hide-element');
         acceptChangesToFunctionButton.classList.toggle('hide-element');
+        changeParametersOfFunctionRandomly.classList.toggle('hide-element');
     }
 
     document.getElementById('playground-main').appendChild(changeFunctionParametersButton);
@@ -107,6 +137,7 @@ function createChangeFunctionParametersElements() {
     document.getElementById('playground-main').appendChild(parameterBToChangeInput);
     document.getElementById('playground-main').appendChild(parameterPToChangeInput);
     document.getElementById('playground-main').appendChild(acceptChangesToFunctionButton);
+    document.getElementById('playground-main').appendChild(changeParametersOfFunctionRandomly);
 }
 
 /**
