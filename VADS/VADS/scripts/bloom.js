@@ -399,14 +399,15 @@ function createShowAddedElementsButton() {
 
 function changeTextInPseudocodeAfterCheckingElementAvailability() {
     document.getElementById('pseudocode-window').innerHTML =
-    "for (int index = 0; index < numberOfFunctions; ++index)  {<br>" +
-        "<span class='pseudocode-check-element-get-filter-index' id='pseudocode-check-element-get-filter-index'>--->int indexInFilter = listOfFunctions[index](element);</span><br>" +
-        "<span class='pseudocode-check-element-check-cell-is-zero' id='pseudocode-check-element-check-cell-is-zero'>--->if (filter[indexInFilter] == 0) {</span><br>" +
-        "<span class='pseudocode-check-element-cell-is-zero' id='pseudocode-check-element-cell-is-zero'>------->gotZero = true; }</span><br>" +
-    "<span class='pseudocode-check-element-check-gotZero-is-true' id='pseudocode-check-element-check-gotZero-is-true'>if (gotZero == true)</span> <span class='pseudocode-check-element-print-not-in-filter' id='pseudocode-check-element-print-not-in-filter'>print(‘definitely not in filter’);</span><br>" +
-    "else {<br>" +
-    "<span class='pseudocode-check-element-check-if-list-includes-element' id='pseudocode-check-element-check-if-list-includes-element'>--->if (!listOfAddedElements.includes(element))</span> <span class='pseudocode-check-element-print-false-positive-result' id='pseudocode-check-element-print-false-positive-result'>print(‘false positive result’);</span><br>" +
-    "<span class='pseudocode-check-element-print-cant-say' id='pseudocode-check-element-print-cant-say'>--->else print(‘can’t say for sure’); }</span>";
+    "<span class='type-pseudocode'>for</span> <span class='bracket-pseudocode'>(</span><span class='type-pseudocode'>int</span> <span class='variable-pseudocode'>index</span> <span class='bracket-pseudocode'>=</span> <span class='numbers-pseudocode'>0</span><span class='bracket-pseudocode'>;</span> <span class='variable-pseudocode'>index</span> <span class='type-pseudocode'><</span> <span class='variable-pseudocode'>numberOfFunctions</span><span class='bracket-pseudocode'>;</span> <span class='bracket-pseudocode'>++</span><span class='variable-pseudocode'>index</span><span class='bracket-pseudocode'>)</span>  <span class='bracket-pseudocode'>{</span><br>" +
+        "<span class='pseudocode-check-element-get-filter-index' id='pseudocode-check-element-get-filter-index'><span class='underscore-pseudocode' id='underscore-pseudocode'>---></span><span class='type-pseudocode'>int</span> <span class='variable-pseudocode'>indexInFilter</span> <span class='bracket-pseudocode'>=</span> <span class='variable-pseudocode'>listOfFunctions</span><span class='bracket-pseudocode'>[</span><span class='variable-pseudocode'>index</span><span class='bracket-pseudocode'>]</span><span class='bracket-pseudocode'>(</span><span class='variable-pseudocode'>element</span><span class='bracket-pseudocode'>)</span><span class='bracket-pseudocode'>;</span></span><br>" +
+        "<span class='pseudocode-check-element-check-cell-is-zero' id='pseudocode-check-element-check-cell-is-zero'><span class='underscore-pseudocode' id='underscore-pseudocode'>---></span><span class='type-pseudocode'>if</span> <span class='bracket-pseudocode'>(</span><span class='variable-pseudocode'>filter</span><span class='bracket-pseudocode'>[</span><span class='variable-pseudocode'>indexInFilter</span><span class='bracket-pseudocode'>]</span> <span class='bracket-pseudocode'>==</span> <span class='numbers-pseudocode'>0</span><span class='bracket-pseudocode'>)</span> <span class='bracket-pseudocode'>{</span></span><br>" +
+        "<span class='pseudocode-check-element-cell-is-zero' id='pseudocode-check-element-cell-is-zero'><span class='underscore-pseudocode' id='underscore-pseudocode'>-------></span><span class='variable-pseudocode'>gotZero</span> <span class='bracket-pseudocode'>=</span> <span class='type-pseudocode'>true</span><span class='bracket-pseudocode'>;</span> <span class='bracket-pseudocode'>}</span></span><br>" +
+    "<span class='pseudocode-check-element-check-gotZero-is-true' id='pseudocode-check-element-check-gotZero-is-true'><span class='type-pseudocode'>if</span> <span class='bracket-pseudocode'>(</span><span class='variable-pseudocode'>gotZero</span> <span class='bracket-pseudocode'>==</span> <span class='type-pseudocode'>true</span><span class='bracket-pseudocode'>)</span></span> <span class='pseudocode-check-element-print-not-in-filter' id='pseudocode-check-element-print-not-in-filter'><span class='numbers-pseudocode'>print</span><span class='bracket-pseudocode'>(</span><span class='pseudocode-check-element-string-element'>‘definitely not in filter’</span><span class='bracket-pseudocode'>);</span></span><br>" +
+    "<span class='type-pseudocode'>else</span> <span class='bracket-pseudocode'>{</span><br>" +
+    "<span id='pseudocode-check-element-check-if-list-includes-element'><span class='underscore-pseudocode' id='underscore-pseudocode'>---></span><span class='type-pseudocode'>if</span> <span class='bracket-pseudocode'>(!</span><span class='variable-pseudocode'>listOfAddedElements</span><span class='bracket-pseudocode'>.</span><span class='numbers-pseudocode'>includes</span><span class='bracket-pseudocode'>(</span><span class='variable-pseudocode'>element</span><span class='bracket-pseudocode'>))</span></span><br>" +
+    "<span id='pseudocode-check-element-print-false'><span class='underscore-pseudocode' id='underscore-pseudocode'>-------></span><span class='numbers-pseudocode'>print</span>(<span class='pseudocode-check-element-string-element'>'false positive result'</span><span class='bracket-pseudocode'>);</span></span><br>" +
+    "<span id='pseudocode-check-element-print-cant-say'><span class='underscore-pseudocode' id='underscore-pseudocode'>---></span><span class='type-pseudocode'>else</span> <span class='numbers-pseudocode'>print</span><span class='bracket-pseudocode'>(</span><span class='pseudocode-check-element-string-element'>‘can’t say for sure’</span><span class='bracket-pseudocode'>); }</span></span>";
 }
 
 /**
@@ -426,14 +427,14 @@ function checkElementAvailability(hashFunctions, filterSize, addedElementsList) 
     // True if all result values were in filter.
     let wasInFilter = true;
     let indexForFunctionDivs = 0;
-    let timerId = setInterval(() => {
+    let timerIdGlobalInterval = setInterval(() => {
         if (indexForFunctionDivs == hashFunctions.length) {
             document.getElementById('pseudocode-check-element-check-gotZero-is-true').classList.add('highlighted-pseudocode');
             if (wasInFilter) {
                 document.getElementById('pseudocode-check-element-check-if-list-includes-element').classList.add('highlighted-pseudocode');
                 // If the element was never added but the result is positive.
                 if (!addedElementsList.includes(value)) {
-                    document.getElementById('pseudocode-check-element-print-false-positive-result').classList.add('highlighted-pseudocode');
+                    document.getElementById('pseudocode-check-element-print-false').classList.add('highlighted-pseudocode');
                     document.getElementById('checking-element-result').innerHTML = "<b>False positive</b> result";
                 } else {
                     document.getElementById('pseudocode-check-element-print-cant-say').classList.add('highlighted-pseudocode');
@@ -448,10 +449,10 @@ function checkElementAvailability(hashFunctions, filterSize, addedElementsList) 
                 document.getElementById('pseudocode-check-element-check-gotZero-is-true').classList.remove('highlighted-pseudocode');
                 document.getElementById('pseudocode-check-element-print-not-in-filter').classList.remove('highlighted-pseudocode');
                 document.getElementById('pseudocode-check-element-check-if-list-includes-element').classList.remove('highlighted-pseudocode');
-                document.getElementById('pseudocode-check-element-print-false-positive-result').classList.remove('highlighted-pseudocode');
+                document.getElementById('pseudocode-check-element-print-false').classList.remove('highlighted-pseudocode');
                 document.getElementById('pseudocode-check-element-print-cant-say').classList.remove('highlighted-pseudocode');
             }, 2000);
-            clearTimeout(timerId);
+            clearInterval(timerIdGlobalInterval);
         }
         let func = hashFunctions[indexForFunctionDivs];
         let filterIndex = func(value)[0] % filterSize;

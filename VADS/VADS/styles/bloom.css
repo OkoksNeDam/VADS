@@ -345,3 +345,7 @@
 .highlighted-pseudocode {
     background-color: wheat;
 }
+
+.pseudocode-check-element-string-element {
+    color: rgb(247, 188, 80);
+}
