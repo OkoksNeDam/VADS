@@ -158,6 +158,19 @@ function createZoneForBarChart() {
     generateBloomFilterForBarChartButton.innerHTML = 'generate';
     zoneForBarChart.appendChild(generateBloomFilterForBarChartButton);
 
+    let barChart = createBarChart(0, 0, 0);
+
+    generateBloomFilterForBarChartButton.onclick = () => {
+        let numberOfFalsePositive, numberOfNegative, numberOfPositive;
+        [numberOfFalsePositive, numberOfNegative, numberOfPositive] = getresultsFromBloomFilterForBarChart(inputFilterSizeForBarChart.value, inputNumberOfHashForBarChart.value,
+        inputNumberOfElementsToAddForBarChart.value, inputNumberOfElementsToCheckForBarChart.value);
+        barChart.destroy();
+        barChart = createBarChart(numberOfFalsePositive, numberOfNegative, numberOfPositive);
+        if (document.getElementById('barChart').style.display == "none") {
+            document.getElementById('barChart').style.display = "block";
+        }
+    }
+
     let labelExplainingBarChart = document.createElement('label');
     labelExplainingBarChart.style.position = 'absolute';
     labelExplainingBarChart.style.top = '300px';
@@ -176,24 +189,74 @@ function createZoneForBarChart() {
         inputNumberOfElementsToCheckForBarChart.classList.toggle('hide-element');
         generateBloomFilterForBarChartButton.classList.toggle('hide-element');
         labelExplainingBarChart.classList.toggle('hide-element');
+
         if (document.getElementById('barChart').style.display == "none") {
             document.getElementById('barChart').style.display = "block";
         } else {
             document.getElementById('barChart').style.display = "none";
         }
     }
+}
 
-    createBarChart();
+/**
+ * Generating Bloom Filter.
+ * Adding elements to it, checking avaliability.
+ * @param {number} filterSize 
+ * @param {number} numberOfFunctions 
+ * @param {number} numberOfElementsToAdd 
+ * @param {number} numberOfElementsToCheck 
+ */
+function getresultsFromBloomFilterForBarChart(filterSize, numberOfFunctions, numberOfElementsToAdd, numberOfElementsToCheck) {
+    let hashFunctions = (new UniversalHashFunctions(numberOfFunctions)).generateFunctions();
+    let addedElements = [];
+    let filter = [];
+    for (let index = 0; index < filterSize; index++) {
+        filter[index] = 0;
+    }
+    for (let indexNewElement = 0; indexNewElement < numberOfElementsToAdd; ++indexNewElement) {
+        let newElement = Math.floor(Math.random() * numberOfElementsToAdd * 1000);
+        if (!addedElements.includes(newElement)) {
+            addedElements.push(newElement);
+        }
+        for (let indexHashFunction = 0; indexHashFunction < hashFunctions.length; ++indexHashFunction) {
+            let currentFunction = hashFunctions[indexHashFunction];
+            let indexForFilter = currentFunction(newElement)[0] % filterSize;
+            filter[indexForFilter] = 1; 
+        }
+    }
+    let countFalsePositive = 0, countNegative = 0, countPositive = 0;
+    let definatelyNotInFilter = false;
+    for (let indexCheckelement = 0; indexCheckelement < numberOfElementsToCheck; indexCheckelement++) {
+        let newElement = Math.floor(Math.random() * numberOfElementsToAdd * 1000);
+        definatelyNotInFilter = false;
+        for (let indexHashFunction = 0; indexHashFunction < hashFunctions.length; ++indexHashFunction) {
+            let currentFunction = hashFunctions[indexHashFunction];
+            let indexForFilter = currentFunction(newElement)[0] % filterSize;
+            if (filter[indexForFilter] == 0) {
+                definatelyNotInFilter = true;
+                ++countNegative;
+                break;
+            }
+        }
+        if (!definatelyNotInFilter) {
+            if (addedElements.includes(newElement)) {
+                ++countPositive;
+            } else {
+                ++countFalsePositive;
+            }
+        }
+    }
+    return [countFalsePositive, countNegative, countPositive];
 }
 
 /**
  * Creating bar chart for showing results of generation.
  */
-function createBarChart() {
+function createBarChart(numberOfFalsePositive, numberOfNegative, numberOfPositive) {
     let canvas = document.createElement('canvas');
     canvas.style.position = "absolute";
     canvas.id = "barChart";
-    canvas.style.display = 'none';
+    canvas.style.display = "none";
 
     document.getElementById('zone-for-bar-chart').appendChild(canvas);
     canvas.parentNode.style.bottom = '10px';
@@ -201,35 +264,48 @@ function createBarChart() {
     canvas.parentNode.style.top = '10px';
     canvas.style.right = '10px';
     canvas.style.bottom = '10px';
-    const ctx = canvas.getContext('2d');
-    const myChart = new Chart(ctx, {
+
+    const data = {
+        labels: ['false positive', 'negative', 'positive'],
+        datasets: [{
+            label: "results",
+            data: [numberOfFalsePositive, numberOfNegative, numberOfPositive],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    const config = {
         type: 'bar',
-        data: {
-            labels: ['false positive', 'negative', 'positive'],
-            datasets: [{
-                label: "results",
-                data: [100000, 50000, 13000],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
+        data,
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
                 }
             }
         }
-    });
+    };
+
+    const barChart = new Chart(
+        document.getElementById('barChart'),
+        config
+    );
+    return barChart;
 }
 
 /**
