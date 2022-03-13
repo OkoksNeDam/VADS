@@ -508,6 +508,13 @@ function createButtonCheckElementAvailability() {
     document.getElementById('playground-main').appendChild(resultOfChecking);
 }
 
+function changeTextInPseudocodeAfterAddingElement() {
+    document.getElementById('pseudocode-window').innerHTML =
+    "<span class='type-pseudocode'>int</span> <span class='variable-pseudocode'>element</span><span class='bracket-pseudocode'>;</span><br><span class='type-pseudocode'>for</span> <span class='bracket-pseudocode'>(</span><span class='type-pseudocode'>int</span> <span class='variable-pseudocode'>index</span> <span class='type-pseudocode'>=</span> <span class='numbers-pseudocode'>0</span><span class='bracket-pseudocode'>;</span> <span class='variable-pseudocode'>index</span> <span class='type-pseudocode'><</span> <span class='variable-pseudocode'>numberOfFunctions</span><span class='bracket-pseudocode'>;</span> <span class='bracket-pseudocode'>++</span><span class='variable-pseudocode'>index</span><span class='bracket-pseudocode'>)</span> <span class='bracket-pseudocode'>{</span><br>" +
+        "<span class='pseudocode-add-element-get-index' id='pseudocode-add-element-get-index'><span class='underscore-pseudocode' id='underscore-pseudocode'>---></span><span class='type-pseudocode'>int</span> <span class='variable-pseudocode'>indexInFilter</span> <span class='type-pseudocode'>=</span> <span class='variable-pseudocode'>listOfFunctions</span><span class='bracket-pseudocode'>[</span><span class='variable-pseudocode'>index</span><span class='bracket-pseudocode'>]</span><span class='bracket-pseudocode'>(</span><span class='variable-pseudocode'>element</span><span class='bracket-pseudocode'>)</span><span class='bracket-pseudocode'>;</span></span>" +
+        "<br><span class='pseudocode-add-element-assign-filter' id='pseudocode-add-element-assign-filter'><span class='underscore-pseudocode' id='underscore-pseudocode'>---></span><span class='variable-pseudocode'>filter</span><span class='bracket-pseudocode'>[</span><span class='variable-pseudocode'>indexInFilter</span><span class='bracket-pseudocode'>]</span> <span class='type-pseudocode'>=</span> <span class='numbers-pseudocode'>1</span><span class='bracket-pseudocode'>;</span></span><br><span class='bracket-pseudocode'>}</span>"
+}
+
 /**
  * When adding an item, change the values in the cells.
  * If the element was added to the filter, change the value
@@ -516,6 +523,7 @@ function createButtonCheckElementAvailability() {
  * @param {number} filterSize number of cells in filter
  */
 function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
+    changeTextInPseudocodeAfterAddingElement();
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
     let inputAddElement = document.getElementById('add-element-input');
@@ -548,6 +556,9 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
             currentHashFunctionDiv.firstChild.innerHTML = `${filterIndex}`;
             currentHashFunctionDiv.classList.add('highlighted');
 
+            // When finding index in filter highlight the code.
+            document.getElementById('pseudocode-add-element-get-index').classList.add('highlighted-pseudocode');
+
             let indexForCell = 0;
             // Run on each cell in filter.
             for (let cell of filterCells) {
@@ -566,10 +577,15 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
                         ctx.stroke();
                         currentHashFunctionDiv.firstChild.innerHTML = innerTextOfFunctionDiv;
                         currentHashFunctionDiv.classList.remove('highlighted');
+
+                        document.getElementById('pseudocode-add-element-get-index').classList.remove('highlighted-pseudocode');
+                        document.getElementById('pseudocode-add-element-assign-filter').classList.add('highlighted-pseudocode');
+
                         cell.firstChild.innerHTML = '1';
                         cell.classList.add('highlighted');
                         setTimeout(() => {
                             ctx.clearRect(0, 0, 1650, 942);
+                            document.getElementById('pseudocode-add-element-assign-filter').classList.remove('highlighted-pseudocode');
                         }, document.getElementById('input-range-speed').value / 3);
                     }, document.getElementById('input-range-speed').value / 2);
                     break;

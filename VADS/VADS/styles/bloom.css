@@ -321,3 +321,27 @@
     width: 379px;
     background-color: rgb(75, 87, 69);
 }
+
+.underscore-pseudocode {
+    color: rgb(29, 28, 28);
+}
+
+.type-pseudocode {
+    color: rgb(55, 107, 248);
+}
+
+.bracket-pseudocode {
+    color: white;
+}
+
+.variable-pseudocode {
+    color: rgb(0, 174, 255);
+}
+
+.numbers-pseudocode {
+    color: rgba(156, 156, 45, 0.972);
+}
+
+.highlighted-pseudocode {
+    background-color: wheat;
+}

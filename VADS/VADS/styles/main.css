@@ -66,10 +66,13 @@ body {
 .pseudocode-window {
     border: 1px solid black;
     position: absolute;
-    left: 75%;
+    left: 70%;
     right: 0px;
     top: 0px;
     bottom: 0px;
+    background-color: rgb(29, 28, 28);
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 .playground-main {
