@@ -12,6 +12,8 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 
             buildBloomFilter(inputFilterSize.value);
 
+            createZoneForBarChart();
+
             // Elements to be added to the bloom filter.
             let addedElementsList = [];
 
@@ -65,6 +67,166 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             }
             document.getElementById('check-element-availability-button').onclick = () => {
                 checkElementAvailability(hashFunctions, inputFilterSize.value, addedElementsList);
+            }
+        }
+    });
+}
+
+/**
+ * Сreates a zone in which the fields for entering
+ * input data for the bloom filter will be located.
+ */
+function createZoneForBarChart() {
+    // Div where input elements and chart would be located.
+    let zoneForBarChart = document.createElement('div');
+    zoneForBarChart.id = 'zone-for-bar-chart';
+    zoneForBarChart.className = 'zone-for-bar-chart';
+    document.getElementById('playground-main').appendChild(zoneForBarChart);
+
+    // Button that shows all input elements for bar chart and chart.
+    let showZoneForBatChartButton = document.createElement('button');
+    showZoneForBatChartButton.className = "show-zone-bar-chart-button";
+    showZoneForBatChartButton.id = "show-zone-bar-chart-button";
+    showZoneForBatChartButton.innerHTML = "Input data analysis";
+    zoneForBarChart.appendChild(showZoneForBatChartButton);
+
+    let labelForFilterSizeBarChart = document.createElement('label');
+    labelForFilterSizeBarChart.style.position = 'absolute';
+    labelForFilterSizeBarChart.style.top = '40px';
+    labelForFilterSizeBarChart.innerHTML = "Filter Bloom size:";
+    labelForFilterSizeBarChart.classList.add('hide-element');
+    zoneForBarChart.appendChild(labelForFilterSizeBarChart);
+
+    // Input for filter size for bar chart.
+    let inputFilterSizeForBarChart = document.createElement('input');
+    inputFilterSizeForBarChart.className = 'input-filter-size-for-bar-chart';
+    inputFilterSizeForBarChart.id = 'input-filter-size-for-bar-chart';
+    inputFilterSizeForBarChart.classList.add('hide-element');
+    inputFilterSizeForBarChart.placeholder = "your number";
+    zoneForBarChart.appendChild(inputFilterSizeForBarChart);
+
+    let labelNumberOfHashFunctionsForBarChart = document.createElement('label');
+    labelNumberOfHashFunctionsForBarChart.style.position = 'absolute';
+    labelNumberOfHashFunctionsForBarChart.style.top = '90px';
+    labelNumberOfHashFunctionsForBarChart.innerHTML = "Number of hash functions:";
+    labelNumberOfHashFunctionsForBarChart.classList.add('hide-element');
+    zoneForBarChart.appendChild(labelNumberOfHashFunctionsForBarChart);
+
+    // Input for number of hash functions for bar chart.
+    let inputNumberOfHashForBarChart = document.createElement('input');
+    inputNumberOfHashForBarChart.className = 'input-number-of-hash-functions-for-bar-chart';
+    inputNumberOfHashForBarChart.id = 'input-number-of-hash-functions-for-bar-chart';
+    inputNumberOfHashForBarChart.classList.add('hide-element');
+    inputNumberOfHashForBarChart.placeholder = "your number";
+    zoneForBarChart.appendChild(inputNumberOfHashForBarChart);
+
+    let labelNumberOfElementsToAdd = document.createElement('label');
+    labelNumberOfElementsToAdd.style.position = 'absolute';
+    labelNumberOfElementsToAdd.style.top = '140px';
+    labelNumberOfElementsToAdd.innerHTML = "Number of elements to add:";
+    labelNumberOfElementsToAdd.classList.add('hide-element');
+    zoneForBarChart.appendChild(labelNumberOfElementsToAdd);
+
+    // Input number of elements to add to filter for bar chart.
+    let inputNumberOfElementsToAddForBarChart = document.createElement('input');
+    inputNumberOfElementsToAddForBarChart.className = 'input-number-of-elements-to-add-for-bar-chart';
+    inputNumberOfElementsToAddForBarChart.id = 'input-number-of-elements-to-add-for-bar-chart';
+    inputNumberOfElementsToAddForBarChart.classList.add('hide-element');
+    inputNumberOfElementsToAddForBarChart.placeholder = "your number";
+    zoneForBarChart.appendChild(inputNumberOfElementsToAddForBarChart);
+
+    let labelNumberOfElementsToCheck = document.createElement('label');
+    labelNumberOfElementsToCheck.style.position = 'absolute';
+    labelNumberOfElementsToCheck.style.top = '195px';
+    labelNumberOfElementsToCheck.innerHTML = "Number of elements to check:";
+    labelNumberOfElementsToCheck.classList.add('hide-element');
+    zoneForBarChart.appendChild(labelNumberOfElementsToCheck);
+
+    // Input number of elements to check avaliability in filter for bar chart.
+    let inputNumberOfElementsToCheckForBarChart = document.createElement('input');
+    inputNumberOfElementsToCheckForBarChart.className = 'input-number-of-elements-to-check-for-bar-chart';
+    inputNumberOfElementsToCheckForBarChart.id = 'input-number-of-elements-to-check-for-bar-chart';
+    inputNumberOfElementsToCheckForBarChart.classList.add('hide-element');
+    inputNumberOfElementsToCheckForBarChart.placeholder = "your number";
+    zoneForBarChart.appendChild(inputNumberOfElementsToCheckForBarChart);
+
+    // After clicking this button bar chart would be redrawing.
+    let generateBloomFilterForBarChartButton = document.createElement('button');
+    generateBloomFilterForBarChartButton.className = 'button-to-build-filter-bar-chart';
+    generateBloomFilterForBarChartButton.id = 'button-to-build-filter-bar-chart';
+    generateBloomFilterForBarChartButton.classList.add('hide-element');
+    generateBloomFilterForBarChartButton.innerHTML = 'generate';
+    zoneForBarChart.appendChild(generateBloomFilterForBarChartButton);
+
+    let labelExplainingBarChart = document.createElement('label');
+    labelExplainingBarChart.style.position = 'absolute';
+    labelExplainingBarChart.style.top = '300px';
+    labelExplainingBarChart.innerHTML = "After generating the filter, the number of elements entered in the third field will be added to it, each element is generated randomly.<br><br>After that, elements are generated, the number of which is equal to the value entered in the fourth field. These elements are checked to see if they are in the filter or not.";
+    labelExplainingBarChart.classList.add('hide-element');
+    zoneForBarChart.appendChild(labelExplainingBarChart);
+
+    showZoneForBatChartButton.onclick = () => {
+        labelForFilterSizeBarChart.classList.toggle('hide-element');
+        inputFilterSizeForBarChart.classList.toggle('hide-element');
+        labelNumberOfHashFunctionsForBarChart.classList.toggle('hide-element');
+        inputNumberOfHashForBarChart.classList.toggle('hide-element');
+        labelNumberOfElementsToAdd.classList.toggle('hide-element');
+        inputNumberOfElementsToAddForBarChart.classList.toggle('hide-element');
+        labelNumberOfElementsToCheck.classList.toggle('hide-element');
+        inputNumberOfElementsToCheckForBarChart.classList.toggle('hide-element');
+        generateBloomFilterForBarChartButton.classList.toggle('hide-element');
+        labelExplainingBarChart.classList.toggle('hide-element');
+        if (document.getElementById('barChart').style.display == "none") {
+            document.getElementById('barChart').style.display = "block";
+        } else {
+            document.getElementById('barChart').style.display = "none";
+        }
+    }
+
+    createBarChart();
+}
+
+/**
+ * Creating bar chart for showing results of generation.
+ */
+function createBarChart() {
+    let canvas = document.createElement('canvas');
+    canvas.style.position = "absolute";
+    canvas.id = "barChart";
+    canvas.style.display = 'none';
+
+    document.getElementById('zone-for-bar-chart').appendChild(canvas);
+    canvas.parentNode.style.bottom = '10px';
+    canvas.parentNode.style.width = '380px';
+    canvas.parentNode.style.top = '10px';
+    canvas.style.right = '10px';
+    canvas.style.bottom = '10px';
+    const ctx = canvas.getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['false positive', 'negative', 'positive'],
+            datasets: [{
+                label: "results",
+                data: [100000, 50000, 13000],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
         }
     });
@@ -166,7 +328,7 @@ function createShowAddedElementsButton() {
  * @param {Object} addedElementsList list of elements that were added to filter
  */
 function checkElementAvailability(hashFunctions, filterSize, addedElementsList) {
-    ctx = document.getElementById("canvas").getContext("2d");
+    ctx = document.getElementById("canvasArrows").getContext("2d");
 
     let inputAddElement = document.getElementById('add-element-input');
     let value = inputAddElement.value;
@@ -278,7 +440,7 @@ function createButtonCheckElementAvailability() {
  * @param {number} filterSize number of cells in filter
  */
 function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
-    ctx = document.getElementById("canvas").getContext("2d");
+    ctx = document.getElementById("canvasArrows").getContext("2d");
 
     let inputAddElement = document.getElementById('add-element-input');
     let value = inputAddElement.value;

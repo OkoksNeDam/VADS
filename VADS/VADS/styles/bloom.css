@@ -267,3 +267,57 @@
     font-size: 13px;
     background-color: rgb(75, 87, 69);
 }
+
+.zone-for-bar-chart {
+    float: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    left: 70%;
+}
+
+.show-zone-bar-chart-button {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    height: 30px;
+    background-color: rgb(122, 120, 120);
+}
+
+.input-filter-size-for-bar-chart {
+    position: absolute;
+    top: 63px;
+    width: 373px;
+    background-color: rgb(122, 120, 120);
+}
+
+.input-number-of-hash-functions-for-bar-chart {
+    position: absolute;
+    top: 110px;
+    width: 373px;
+    background-color: rgb(122, 120, 120);
+}
+
+.input-number-of-elements-to-add-for-bar-chart {
+    position: absolute;
+    top: 165px;
+    width: 373px;
+    background-color: rgb(122, 120, 120);
+}
+
+.input-number-of-elements-to-check-for-bar-chart {
+    position: absolute;
+    top: 220px;
+    width: 373px;
+    background-color: rgb(122, 120, 120);
+}
+
+.button-to-build-filter-bar-chart {
+    position: absolute;
+    top: 260px;
+    height: 30px;
+    width: 379px;
+    background-color: rgb(75, 87, 69);
+}

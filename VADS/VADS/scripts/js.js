@@ -1,7 +1,7 @@
 /**
  * As the data structure Bloom filter was chosen.
  */
-document.getElementById("bloom-filter-carousel-element").onclick = function(event) {
+document.getElementById("bloom-filter-carousel-element").onclick = function() {
     let elementInCarouselBloomFilter = document.getElementById("bloom-filter-carousel-element");
     if (elementInCarouselBloomFilter.hasAttribute('in-use')) {
         return;

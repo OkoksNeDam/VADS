@@ -43,7 +43,7 @@
  */
 function createInputNumberOfHash(elementsPlaygroundCap) {
     let divNumberOfHesh = document.createElement('div');
-    divNumberOfHesh.innerHTML = 'Number of hesh: ';
+    divNumberOfHesh.innerHTML = 'Number of hash: ';
     divNumberOfHesh.className = 'div-hesh-number';
     let inputNumberOfHesh = document.createElement('input');
     inputNumberOfHesh.style = "background-color: rgb(122, 120, 120)";
