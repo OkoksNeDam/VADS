@@ -2,6 +2,13 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
     buttonBuildFilter.addEventListener('click', () => {
         if (!Number.isInteger(inputFilterSize.value) && inputFilterSize.value <= 13 && inputFilterSize.value >= 0 &&
             !Number.isInteger(inputNumberOfHash.value && inputNumberOfHash.value <= 13 && inputNumberOfHash.value >= 0)) {
+            document.getElementById('pseudocode-window').innerHTML = "";
+            let pseudocodeTitle = document.createElement('div');
+            pseudocodeTitle.className = 'pseudocode-titile';
+            pseudocodeTitle.id = 'pseudocode-titile';
+            pseudocodeTitle.innerHTML = 'CODE';
+            document.getElementById('pseudocode-window').appendChild(pseudocodeTitle);
+
             // Reset the main playground.
             document.getElementById('playground-main').innerHTML = '';
 

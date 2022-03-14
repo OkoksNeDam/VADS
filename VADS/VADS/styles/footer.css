@@ -11,3 +11,13 @@
 .input-range-speed:hover {
     cursor: pointer;
 }
+
+.pseudocode-titile {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 30px;
+    margin-top: -20px;
+    margin-left: -35px;
+    color: darkgoldenrod;
+}

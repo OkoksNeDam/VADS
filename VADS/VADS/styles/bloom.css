@@ -183,6 +183,10 @@
     background-color: rgb(122, 120, 120);
 }
 
+.change-function-parameters-button:hover {
+    cursor: pointer;
+}
+
 .text-area-with-list-of-added-elements {
     position: absolute;
     float: left;
@@ -257,6 +261,10 @@
     background-color: rgb(75, 87, 69);
 }
 
+.accespt-changes-to-function-button:hover {
+    cursor: pointer;
+}
+
 .change-parameters-of-function-randomly {
     position: absolute;
     float: left;
@@ -267,6 +275,11 @@
     font-size: 13px;
     background-color: rgb(75, 87, 69);
 }
+
+.change-parameters-of-function-randomly:hover {
+    cursor: pointer;
+}
+
 
 .zone-for-bar-chart {
     float: right;
@@ -284,6 +297,10 @@
     right: 0px;
     height: 30px;
     background-color: rgb(122, 120, 120);
+}
+
+.show-zone-bar-chart-button:hover {
+    cursor: pointer;
 }
 
 .input-filter-size-for-bar-chart {
@@ -320,6 +337,10 @@
     height: 30px;
     width: 379px;
     background-color: rgb(75, 87, 69);
+}
+
+.button-to-build-filter-bar-chart:hover {
+    cursor: pointer;
 }
 
 .underscore-pseudocode {
