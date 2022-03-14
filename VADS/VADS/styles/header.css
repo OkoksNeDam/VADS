@@ -11,3 +11,13 @@
 .button-build-filter:hover {
     cursor: pointer;
 }
+
+.playground-cap-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: -46px;
+    margin-top: -20px;
+}

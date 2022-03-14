@@ -21,12 +21,3 @@ function drawInterface() {
             break;
     }
 }
-
-/**
- * Reset all interface in the playground.
- */
-function resetPlayground() {
-    document.getElementById('elements-playground-cap').innerHTML = '';
-    document.getElementById('playground-main').innerHTML = '';
-    document.getElementById('elements-playground-footer').innerHTML = '';
-}

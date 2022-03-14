@@ -21,3 +21,19 @@
     margin-left: -35px;
     color: darkgoldenrod;
 }
+
+.playground-footer-title {
+    position: absolute;
+    top: 50%;
+    left: 33%;
+    font-size: 30px;
+    margin-top: -15px;
+    font-weight: 600;
+}
+
+.indecies-for-speed-range {
+    position: absolute;
+    bottom: 140px;
+    left: 143px;
+    font-size: 13px;
+}

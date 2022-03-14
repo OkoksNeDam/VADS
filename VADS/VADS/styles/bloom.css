@@ -370,3 +370,13 @@
 .pseudocode-check-element-string-element {
     color: rgb(247, 188, 80);
 }
+
+.playground-main-title {
+    position: absolute;
+    font-size: 30px;
+    left: 50%;
+    top: 50%;
+    margin-top: -30px;
+    margin-left: -55px;
+    font-weight: 600;
+}

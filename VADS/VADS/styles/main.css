@@ -64,7 +64,7 @@ body {
 }
 
 .pseudocode-window {
-    border: 1px solid black;
+    border: 1px solid white;
     position: absolute;
     left: 70%;
     right: 0px;

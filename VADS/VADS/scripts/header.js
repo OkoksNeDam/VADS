@@ -5,6 +5,8 @@
     // DIV containing all header elements.
     let elementsPlaygroundCap = document.getElementById('elements-playground-cap');
 
+    elementsPlaygroundCap.innerHTML = "";
+
     // Creating settings for input filter size.
     let inputFilterSize = createInputFilterSize(elementsPlaygroundCap);
 

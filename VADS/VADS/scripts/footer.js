@@ -5,6 +5,8 @@ function fillTheFooterBloomFilter() {
     // Element in which some settings of footer are situated.
     let elementsPlaygroundFooter = document.getElementById('elements-playground-footer');
 
+    document.getElementById('playground-footer-title').style.display = "none";
+
     addInputRangeForSpeedVisualization(elementsPlaygroundFooter);
 }
 
@@ -25,8 +27,14 @@ function addInputRangeForSpeedVisualization(elementsPlaygroundFooter) {
     inputRangeSpeedVisual.max = "3000";
     inputRangeSpeedVisual.step = "any";
 
-    shellForInputRangeSpeed.innerHTML = 'Speed visualization';
+    shellForInputRangeSpeed.innerHTML = 'Speed visualization:';
+
+    let subIndeciesForSpeedRange = document.createElement('div');
+    subIndeciesForSpeedRange.className = 'indecies-for-speed-range';
+    subIndeciesForSpeedRange.id = 'indecies-for-speed-range';
+    subIndeciesForSpeedRange.innerHTML = "faster<span style='color:grey'>----------------</span>slower";
 
     shellForInputRangeSpeed.appendChild(inputRangeSpeedVisual);
+    elementsPlaygroundFooter.appendChild(subIndeciesForSpeedRange);
     elementsPlaygroundFooter.appendChild(shellForInputRangeSpeed);
 }
