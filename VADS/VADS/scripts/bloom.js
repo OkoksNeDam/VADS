@@ -1,7 +1,45 @@
+let filterSize, numberOfHash;
+
 function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterSize, inputNumberOfHash) {
     buttonBuildFilter.addEventListener('click', () => {
-        if (!Number.isInteger(inputFilterSize.value) && inputFilterSize.value <= 13 && inputFilterSize.value >= 0 &&
-            !Number.isInteger(inputNumberOfHash.value && inputNumberOfHash.value <= 13 && inputNumberOfHash.value >= 0)) {
+        inputFilterSize.addEventListener('click', () => {
+            if (inputFilterSize.style.borderColor == "red") {
+                inputFilterSize.value = "";
+                inputFilterSize.style.borderColor = "grey";
+            }
+        });
+        inputNumberOfHash.addEventListener('click', () => {
+            if (inputNumberOfHash.style.borderColor == "red") {
+                inputNumberOfHash.value = "";
+                inputNumberOfHash.style.borderColor = "grey";
+            }
+        });
+        let dontBuildFilter = false;
+        if (isFloat(parseFloat(inputFilterSize.value)) || !(Number.isInteger(parseInt(inputFilterSize.value)) && parseInt(inputFilterSize.value) <= 13 && parseInt(inputFilterSize.value) >= 1)) {
+            inputFilterSize.style.borderColor = "red";
+            dontBuildFilter = true;
+        }
+        if (isFloat(parseFloat(inputNumberOfHash.value)) || !(Number.isInteger(parseInt(inputNumberOfHash.value)) && parseInt(inputNumberOfHash.value) <= 13 && parseInt(inputNumberOfHash.value) >= 1)) {
+            inputNumberOfHash.style.borderColor = "red";
+            dontBuildFilter = true;
+        }
+
+        if (dontBuildFilter) {
+            // Reset the main playground.
+            document.getElementById('playground-main').innerHTML = '';
+            let playgroundMainTitle = document.createElement('div');
+            playgroundMainTitle.className = 'playground-main-title';
+            playgroundMainTitle.id = 'playground-main-title';
+            playgroundMainTitle.innerHTML = "playground";
+            document.getElementById('playground-main').appendChild(playgroundMainTitle);
+            return;
+        }
+        if (Number.isInteger(parseInt(inputFilterSize.value)) && parseInt(inputFilterSize.value) <= 13 && parseInt(inputFilterSize.value) >= 1 &&
+            Number.isInteger(parseInt(inputNumberOfHash.value)) && parseInt(inputNumberOfHash.value) <= 13 && parseInt(inputNumberOfHash.value) >= 1) {
+            
+            filterSize = inputFilterSize.value;
+            numberOfHash = inputNumberOfHash.value;
+
             document.getElementById('pseudocode-window').innerHTML = "";
             let pseudocodeTitle = document.createElement('div');
             pseudocodeTitle.className = 'pseudocode-titile';
@@ -17,7 +55,7 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             // Creating shell for hash functions.
             createHashFunctions();
 
-            buildBloomFilter(inputFilterSize.value);
+            buildBloomFilter(filterSize);
 
             createZoneForBarChart();
 
@@ -25,7 +63,7 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             let addedElementsList = [];
 
             // Creating universal hash functions.
-            let hashFunctions = new UniversalHashFunctions(inputNumberOfHash.value).generateFunctions();
+            let hashFunctions = new UniversalHashFunctions(numberOfHash).generateFunctions();
 
             createChangeFunctionParametersElements();
             document.getElementById('accespt-changes-to-function-button').onclick = () => {
@@ -41,7 +79,7 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
                     return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
                 }
                 hashFunctions[numberOfFunction - 1] = newFunction;
-                buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions, inputFilterSize.value);
+                buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             }
             document.getElementById('change-parameters-of-function-randomly').onclick = () => {
                 let numberOfFunction = document.getElementById('number-of-function-to-change-input').value;
@@ -56,27 +94,35 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
                     return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
                 }
                 hashFunctions[numberOfFunction - 1] = newFunction;
-                buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions, inputFilterSize.value);
+                buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             }
-            buildListOfHashFunctions(inputNumberOfHash.value, hashFunctions, inputFilterSize.value);
+            buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             createButtonAddElement();
             createInputAddElement();
             createButtonCheckElementAvailability();
             createShowAddedElementsButton();
 
             document.getElementById('add-element-button').onclick = () => {
-                if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
-                    addedElementsList.push(document.getElementById('add-element-input').value);
-                    document.getElementById('text-area-with-list-of-added-elements').innerHTML += 
-                                addedElementsList.length + ":  " + document.getElementById('add-element-input').value + "\n";
+                if (document.getElementById('add-element-input').style.borderColor != "red") {
+                    if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
+                        addedElementsList.push(document.getElementById('add-element-input').value);
+                        document.getElementById('text-area-with-list-of-added-elements').innerHTML += 
+                                    addedElementsList.length + ":  " + document.getElementById('add-element-input').value + "\n";
+                    }
+                    changeValuesInCellsAfterAddingElement(hashFunctions, filterSize);
                 }
-                changeValuesInCellsAfterAddingElement(hashFunctions, inputFilterSize.value);
             }
             document.getElementById('check-element-availability-button').onclick = () => {
-                checkElementAvailability(hashFunctions, inputFilterSize.value, addedElementsList);
+                if (document.getElementById('add-element-input').style.borderColor != "red") {
+                    checkElementAvailability(hashFunctions, filterSize, addedElementsList);
+                }
             }
         }
     });
+}
+
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
 }
 
 /**
@@ -213,11 +259,11 @@ function createZoneForBarChart() {
  * @param {number} numberOfElementsToAdd 
  * @param {number} numberOfElementsToCheck 
  */
-function getresultsFromBloomFilterForBarChart(filterSize, numberOfFunctions, numberOfElementsToAdd, numberOfElementsToCheck) {
+function getresultsFromBloomFilterForBarChart(filterSizeBarChart, numberOfFunctions, numberOfElementsToAdd, numberOfElementsToCheck) {
     let hashFunctions = (new UniversalHashFunctions(numberOfFunctions)).generateFunctions();
     let addedElements = [];
     let filter = [];
-    for (let index = 0; index < filterSize; index++) {
+    for (let index = 0; index < filterSizeBarChart; index++) {
         filter[index] = 0;
     }
     for (let indexNewElement = 0; indexNewElement < numberOfElementsToAdd; ++indexNewElement) {
@@ -227,7 +273,7 @@ function getresultsFromBloomFilterForBarChart(filterSize, numberOfFunctions, num
         }
         for (let indexHashFunction = 0; indexHashFunction < hashFunctions.length; ++indexHashFunction) {
             let currentFunction = hashFunctions[indexHashFunction];
-            let indexForFilter = currentFunction(newElement)[0] % filterSize;
+            let indexForFilter = currentFunction(newElement)[0] % filterSizeBarChart;
             filter[indexForFilter] = 1; 
         }
     }
@@ -238,7 +284,7 @@ function getresultsFromBloomFilterForBarChart(filterSize, numberOfFunctions, num
         definatelyNotInFilter = false;
         for (let indexHashFunction = 0; indexHashFunction < hashFunctions.length; ++indexHashFunction) {
             let currentFunction = hashFunctions[indexHashFunction];
-            let indexForFilter = currentFunction(newElement)[0] % filterSize;
+            let indexForFilter = currentFunction(newElement)[0] % filterSizeBarChart;
             if (filter[indexForFilter] == 0) {
                 definatelyNotInFilter = true;
                 ++countNegative;
@@ -423,7 +469,7 @@ function changeTextInPseudocodeAfterCheckingElementAvailability() {
  * @param {number} filterSize number of cells in filter
  * @param {Object} addedElementsList list of elements that were added to filter
  */
-function checkElementAvailability(hashFunctions, filterSize, addedElementsList) {
+function checkElementAvailability(hashFunctions, addedElementsList) {
     changeTextInPseudocodeAfterCheckingElementAvailability();
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
@@ -463,6 +509,11 @@ function checkElementAvailability(hashFunctions, filterSize, addedElementsList) 
         }
         let func = hashFunctions[indexForFunctionDivs];
         let filterIndex = func(value)[0] % filterSize;
+
+        if (filterIndex < 0) {
+            filterIndex *= -1;
+            filterIndex = filterSize - filterIndex;
+        }
 
         // Coordinates for the value input field.
         let rectangleInputCoordinates = inputAddElement.getBoundingClientRect();
@@ -561,9 +612,8 @@ function changeTextInPseudocodeAfterAddingElement() {
  * If the element was added to the filter, change the value
  * of the corresponding cells by one.
  * @param {Array} hashFunctions list of hash functions
- * @param {number} filterSize number of cells in filter
  */
-function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
+function changeValuesInCellsAfterAddingElement(hashFunctions) {
     changeTextInPseudocodeAfterAddingElement();
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
@@ -577,6 +627,11 @@ function changeValuesInCellsAfterAddingElement(hashFunctions, filterSize) {
             let func = hashFunctions[indexForFunctionDivs];
 
             let filterIndex = func(value)[0] % filterSize;
+
+            if (filterIndex < 0) {
+                filterIndex *= -1;
+                filterIndex = filterSize - filterIndex;
+            }
 
             // Coordinates for the value input field.
             let rectangleInputCoordinates = inputAddElement.getBoundingClientRect();
@@ -649,6 +704,20 @@ function createInputAddElement() {
     inputAddElement.className = 'add-element-input';
     inputAddElement.id = 'add-element-input';
     inputAddElement.placeholder = 'your number';
+
+    inputAddElement.onblur = () => {
+        if ((isFloat(parseFloat(inputAddElement.value)) || !Number.isInteger(parseInt(inputAddElement.value))) && inputAddElement.style.borderColor != "red") {
+            inputAddElement.style.borderColor = "red";
+        }
+    }
+
+    inputAddElement.addEventListener('click', () => {
+        if (inputAddElement.style.borderColor == "red") {
+            inputAddElement.style.borderColor = "grey";
+            inputAddElement.value = "";
+        }
+    });
+
     document.getElementById('playground-main').appendChild(inputAddElement);
 }
 
@@ -688,9 +757,8 @@ function createFilterArray() {
 
 /**
  * Draws divs that match bloom filter cells.
- * @param {number} filterSize size of Bloom filter
  */
-function buildBloomFilter(filterSize) {
+function buildBloomFilter() {
     // Div that contains cells for Bloom filter
     let filterArrayDiv = document.getElementById('filter-array-div');
     // Every new cell would be next this position.
@@ -716,7 +784,7 @@ function buildBloomFilter(filterSize) {
  * @param {number} numberOfHash amount of hash functions
  * @param {Array} hashFunctions array of hash functions
  */
-function buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize) {
+function buildListOfHashFunctions(numberOfHash, hashFunctions) {
      let hashFunctionsList = document.getElementById('hash-functions-list-div');
      hashFunctionsList.innerHTML = "";
      // Every new hash function would be next this position.
