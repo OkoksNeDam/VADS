@@ -5,13 +5,13 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
         inputFilterSize.addEventListener('click', () => {
             if (inputFilterSize.style.borderColor == "red") {
                 inputFilterSize.value = "";
-                inputFilterSize.style.borderColor = "grey";
+                inputFilterSize.style.borderColor = "";
             }
         });
         inputNumberOfHash.addEventListener('click', () => {
             if (inputNumberOfHash.style.borderColor == "red") {
                 inputNumberOfHash.value = "";
-                inputNumberOfHash.style.borderColor = "grey";
+                inputNumberOfHash.style.borderColor = "";
             }
         });
         let dontBuildFilter = false;
@@ -37,8 +37,8 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
         if (Number.isInteger(parseInt(inputFilterSize.value)) && parseInt(inputFilterSize.value) <= 13 && parseInt(inputFilterSize.value) >= 1 &&
             Number.isInteger(parseInt(inputNumberOfHash.value)) && parseInt(inputNumberOfHash.value) <= 13 && parseInt(inputNumberOfHash.value) >= 1) {
             
-            filterSize = inputFilterSize.value;
-            numberOfHash = inputNumberOfHash.value;
+            filterSize = parseInt(inputFilterSize.value);
+            numberOfHash = parseInt(inputNumberOfHash.value);
 
             document.getElementById('pseudocode-window').innerHTML = "";
             let pseudocodeTitle = document.createElement('div');
@@ -103,18 +103,18 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createShowAddedElementsButton();
 
             document.getElementById('add-element-button').onclick = () => {
-                if (document.getElementById('add-element-input').style.borderColor != "red") {
-                    if (!addedElementsList.includes(document.getElementById('add-element-input').value)) {
-                        addedElementsList.push(document.getElementById('add-element-input').value);
+                if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
+                    if (!addedElementsList.includes(parseInt(document.getElementById('add-element-input').value))) {
+                        addedElementsList.push(parseInt(document.getElementById('add-element-input').value));
                         document.getElementById('text-area-with-list-of-added-elements').innerHTML += 
-                                    addedElementsList.length + ":  " + document.getElementById('add-element-input').value + "\n";
+                                    addedElementsList.length + ":  " + parseInt(document.getElementById('add-element-input').value) + "\n";
                     }
                     changeValuesInCellsAfterAddingElement(hashFunctions, filterSize);
                 }
             }
             document.getElementById('check-element-availability-button').onclick = () => {
-                if (document.getElementById('add-element-input').style.borderColor != "red") {
-                    checkElementAvailability(hashFunctions, filterSize, addedElementsList);
+                if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
+                    checkElementAvailability(hashFunctions, addedElementsList);
                 }
             }
         }
@@ -467,14 +467,14 @@ function changeTextInPseudocodeAfterCheckingElementAvailability() {
  * Сheck if there is an element in the filter.
  * @param {Array} hashFunctions list of hash functions
  * @param {number} filterSize number of cells in filter
- * @param {Object} addedElementsList list of elements that were added to filter
+ * @param {Array} addedElementsList list of elements that were added to filter
  */
 function checkElementAvailability(hashFunctions, addedElementsList) {
     changeTextInPseudocodeAfterCheckingElementAvailability();
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
     let inputAddElement = document.getElementById('add-element-input');
-    let value = inputAddElement.value;
+    let value = parseInt(inputAddElement.value);
     inputAddElement.value = '';
     let filterCells = document.getElementById('filter-array-div').childNodes;
     // True if all result values were in filter.
@@ -505,7 +505,7 @@ function checkElementAvailability(hashFunctions, addedElementsList) {
                 document.getElementById('pseudocode-check-element-print-false').classList.remove('highlighted-pseudocode');
                 document.getElementById('pseudocode-check-element-print-cant-say').classList.remove('highlighted-pseudocode');
             }, 2000);
-            clearInterval(timerIdGlobalInterval);
+            clearTimeout(timerIdGlobalInterval);
         }
         let func = hashFunctions[indexForFunctionDivs];
         let filterIndex = func(value)[0] % filterSize;
@@ -618,7 +618,7 @@ function changeValuesInCellsAfterAddingElement(hashFunctions) {
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
     let inputAddElement = document.getElementById('add-element-input');
-    let value = inputAddElement.value;
+    let value = parseInt(inputAddElement.value);
     inputAddElement.value = '';
     let filterCells = document.getElementById('filter-array-div').childNodes;
 
@@ -706,14 +706,15 @@ function createInputAddElement() {
     inputAddElement.placeholder = 'your number';
 
     inputAddElement.onblur = () => {
-        if ((isFloat(parseFloat(inputAddElement.value)) || !Number.isInteger(parseInt(inputAddElement.value))) && inputAddElement.style.borderColor != "red") {
+        if (inputAddElement.value != "" && (isFloat(parseFloat(inputAddElement.value)) || !Number.isInteger(parseInt(inputAddElement.value)) || 
+            String(parseInt(inputAddElement.value)).length > 16) && inputAddElement.style.borderColor != "red") {
             inputAddElement.style.borderColor = "red";
         }
     }
 
     inputAddElement.addEventListener('click', () => {
         if (inputAddElement.style.borderColor == "red") {
-            inputAddElement.style.borderColor = "grey";
+            inputAddElement.style.borderColor = "";
             inputAddElement.value = "";
         }
     });
