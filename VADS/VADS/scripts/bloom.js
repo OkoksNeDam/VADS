@@ -67,34 +67,43 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 
             createChangeFunctionParametersElements();
             document.getElementById('accespt-changes-to-function-button').onclick = () => {
-                let numberOfFunction = document.getElementById('number-of-function-to-change-input').value;
-                let parameterA = document.getElementById('a-parameter-to-change-input').value;
-                let parameterB = document.getElementById('b-parameter-to-change-input').value;
-                let parameterP = document.getElementById('p-parameter-to-change-input').value;
-                document.getElementById('number-of-function-to-change-input').value = "";
-                document.getElementById('a-parameter-to-change-input').value = "";
-                document.getElementById('b-parameter-to-change-input').value = "";
-                document.getElementById('p-parameter-to-change-input').value = "";
-                let newFunction = value => {
-                    return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
+                if (!(document.getElementById('number-of-function-to-change-input').value == "" || document.getElementById('a-parameter-to-change-input').value == "" || 
+                    document.getElementById('b-parameter-to-change-input').value == "" || document.getElementById('p-parameter-to-change-input').value == "" || 
+                    document.getElementById('number-of-function-to-change-input').style.borderColor == "red" || document.getElementById('a-parameter-to-change-input').style.borderColor == "red" || 
+                    document.getElementById('b-parameter-to-change-input').style.borderColor == "red" || document.getElementById('p-parameter-to-change-input').style.borderColor == "red")) {
+
+                    let numberOfFunction = parseInt(document.getElementById('number-of-function-to-change-input').value);
+                    let parameterA = parseInt(document.getElementById('a-parameter-to-change-input').value);
+                    let parameterB = parseInt(document.getElementById('b-parameter-to-change-input').value);
+                    let parameterP = parseInt(document.getElementById('p-parameter-to-change-input').value);
+                    document.getElementById('number-of-function-to-change-input').value = "";
+                    document.getElementById('a-parameter-to-change-input').value = "";
+                    document.getElementById('b-parameter-to-change-input').value = "";
+                    document.getElementById('p-parameter-to-change-input').value = "";
+                    let newFunction = value => {
+                        return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
+                    }
+                    hashFunctions[numberOfFunction - 1] = newFunction;
+                    buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
                 }
-                hashFunctions[numberOfFunction - 1] = newFunction;
-                buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             }
             document.getElementById('change-parameters-of-function-randomly').onclick = () => {
-                let numberOfFunction = document.getElementById('number-of-function-to-change-input').value;
-                let parameterP = Math.floor(Math.random() * (100000) + 1);
-                let parameterA = Math.floor(Math.random() * (parameterP - 1) + 1);
-                let parameterB = Math.floor(Math.random() * parameterP);
-                document.getElementById('number-of-function-to-change-input').value = "";
-                document.getElementById('a-parameter-to-change-input').value = "";
-                document.getElementById('b-parameter-to-change-input').value = "";
-                document.getElementById('p-parameter-to-change-input').value = "";
-                let newFunction = value => {
-                    return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
+                if (document.getElementById('number-of-function-to-change-input').value != "" &&
+                    document.getElementById('number-of-function-to-change-input').style.borderColor != "red") {
+                    let numberOfFunction = parseInt(document.getElementById('number-of-function-to-change-input').value);
+                    let parameterP = Math.floor(Math.random() * (100000) + 1);
+                    let parameterA = Math.floor(Math.random() * (parameterP - 1) + 1);
+                    let parameterB = Math.floor(Math.random() * parameterP);
+                    document.getElementById('number-of-function-to-change-input').value = "";
+                    document.getElementById('a-parameter-to-change-input').value = "";
+                    document.getElementById('b-parameter-to-change-input').value = "";
+                    document.getElementById('p-parameter-to-change-input').value = "";
+                    let newFunction = value => {
+                        return [(parameterA * value + parameterB) % parameterP, parameterA, parameterB, parameterP];
+                    }
+                    hashFunctions[numberOfFunction - 1] = newFunction;
+                    buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
                 }
-                hashFunctions[numberOfFunction - 1] = newFunction;
-                buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             }
             buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             createButtonAddElement();
@@ -378,12 +387,40 @@ function createChangeFunctionParametersElements() {
     numberOfFunctionToChangeInput.placeholder = "number of function";
     numberOfFunctionToChangeInput.classList.toggle('hide-element');
 
+    numberOfFunctionToChangeInput.onblur = () => {
+        if (numberOfFunctionToChangeInput.value != "" && (isFloat(parseFloat(numberOfFunctionToChangeInput.value)) || !Number.isInteger(parseInt(numberOfFunctionToChangeInput.value)) || 
+            parseInt(numberOfFunctionToChangeInput.value) > numberOfHash || parseInt(numberOfFunctionToChangeInput.value) < 1) && numberOfFunctionToChangeInput.style.borderColor != "red") {
+            numberOfFunctionToChangeInput.style.borderColor = "red";
+        }
+    }
+
+    numberOfFunctionToChangeInput.addEventListener('click', () => {
+        if (numberOfFunctionToChangeInput.style.borderColor == "red") {
+            numberOfFunctionToChangeInput.style.borderColor = "";
+            numberOfFunctionToChangeInput.value = "";
+        }
+    });
+
     // New parameter 'a' for function.
     let parameterAToChangeInput = document.createElement('input');
     parameterAToChangeInput.className = 'a-parameter-to-change-input';
     parameterAToChangeInput.id = 'a-parameter-to-change-input';
     parameterAToChangeInput.placeholder = "'a' parameter";
     parameterAToChangeInput.classList.toggle('hide-element');
+
+    parameterAToChangeInput.onblur = () => {
+        if (parameterAToChangeInput.value != "" && (isFloat(parseFloat(parameterAToChangeInput.value)) || !Number.isInteger(parseInt(parameterAToChangeInput.value)) || 
+            String(parseInt(parameterAToChangeInput.value)).length > 16) && parameterAToChangeInput.style.borderColor != "red") {
+            parameterAToChangeInput.style.borderColor = "red";
+        }
+    }
+
+    parameterAToChangeInput.addEventListener('click', () => {
+        if (parameterAToChangeInput.style.borderColor == "red") {
+            parameterAToChangeInput.style.borderColor = "";
+            parameterAToChangeInput.value = "";
+        }
+    });
 
     // New parameter 'b' for function.
     let parameterBToChangeInput = document.createElement('input');
@@ -392,12 +429,40 @@ function createChangeFunctionParametersElements() {
     parameterBToChangeInput.placeholder = "'b' parameter";
     parameterBToChangeInput.classList.toggle('hide-element');
 
+    parameterBToChangeInput.onblur = () => {
+        if (parameterBToChangeInput.value != "" && (isFloat(parseFloat(parameterBToChangeInput.value)) || !Number.isInteger(parseInt(parameterBToChangeInput.value)) || 
+            String(parseInt(parameterBToChangeInput.value)).length > 16) && parameterBToChangeInput.style.borderColor != "red") {
+            parameterBToChangeInput.style.borderColor = "red";
+        }
+    }
+
+    parameterBToChangeInput.addEventListener('click', () => {
+        if (parameterBToChangeInput.style.borderColor == "red") {
+            parameterBToChangeInput.style.borderColor = "";
+            parameterBToChangeInput.value = "";
+        }
+    });
+
     // New parameter 'p' for function.
     let parameterPToChangeInput = document.createElement('input');
     parameterPToChangeInput.className = 'p-parameter-to-change-input';
     parameterPToChangeInput.id = 'p-parameter-to-change-input';
     parameterPToChangeInput.placeholder = "'p' parameter";
     parameterPToChangeInput.classList.toggle('hide-element');
+
+    parameterPToChangeInput.onblur = () => {
+        if (parameterPToChangeInput.value != "" && (isFloat(parseFloat(parameterPToChangeInput.value)) || !Number.isInteger(parseInt(parameterPToChangeInput.value)) || 
+            String(parseInt(parameterPToChangeInput.value)).length > 16) && parameterPToChangeInput.style.borderColor != "red") {
+            parameterPToChangeInput.style.borderColor = "red";
+        }
+    }
+
+    parameterPToChangeInput.addEventListener('click', () => {
+        if (parameterPToChangeInput.style.borderColor == "red") {
+            parameterPToChangeInput.style.borderColor = "";
+            parameterPToChangeInput.value = "";
+        }
+    });
 
     // When you click this button all parameters of function will change.
     let acceptChangesToFunctionButton = document.createElement('button');
