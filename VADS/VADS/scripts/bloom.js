@@ -1,7 +1,11 @@
 let filterSize, numberOfHash;
+let visualizationInProcess = false;
 
 function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterSize, inputNumberOfHash) {
     buttonBuildFilter.addEventListener('click', () => {
+        if (visualizationInProcess) {
+            return;
+        }
         inputFilterSize.addEventListener('click', () => {
             if (inputFilterSize.style.borderColor == "red") {
                 inputFilterSize.value = "";
@@ -67,7 +71,8 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
 
             createChangeFunctionParametersElements();
             document.getElementById('accespt-changes-to-function-button').onclick = () => {
-                if (!(document.getElementById('number-of-function-to-change-input').value == "" || document.getElementById('a-parameter-to-change-input').value == "" || 
+                if (!visualizationInProcess) {
+                    if (!(document.getElementById('number-of-function-to-change-input').value == "" || document.getElementById('a-parameter-to-change-input').value == "" || 
                     document.getElementById('b-parameter-to-change-input').value == "" || document.getElementById('p-parameter-to-change-input').value == "" || 
                     document.getElementById('number-of-function-to-change-input').style.borderColor == "red" || document.getElementById('a-parameter-to-change-input').style.borderColor == "red" || 
                     document.getElementById('b-parameter-to-change-input').style.borderColor == "red" || document.getElementById('p-parameter-to-change-input').style.borderColor == "red")) {
@@ -86,9 +91,11 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
                     hashFunctions[numberOfFunction - 1] = newFunction;
                     buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
                 }
+                }
             }
             document.getElementById('change-parameters-of-function-randomly').onclick = () => {
-                if (document.getElementById('number-of-function-to-change-input').value != "" &&
+                if (!visualizationInProcess) {
+                    if (document.getElementById('number-of-function-to-change-input').value != "" &&
                     document.getElementById('number-of-function-to-change-input').style.borderColor != "red") {
                     let numberOfFunction = parseInt(document.getElementById('number-of-function-to-change-input').value);
                     let parameterP = Math.floor(Math.random() * (100000) + 1);
@@ -104,6 +111,7 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
                     hashFunctions[numberOfFunction - 1] = newFunction;
                     buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
                 }
+                }
             }
             buildListOfHashFunctions(numberOfHash, hashFunctions, filterSize);
             createButtonAddElement();
@@ -115,29 +123,35 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             // filter would be deleted.
             let buttonClearFilter = createButtonClearFilter();
             buttonClearFilter.onclick = () => {
-                addedElementsList = [];
-                document.getElementById('text-area-with-list-of-added-elements').innerHTML = "";
+                if (!visualizationInProcess) {
+                    addedElementsList = [];
+                    document.getElementById('text-area-with-list-of-added-elements').innerHTML = "";
 
-                let filterCells = document.getElementById('filter-array-div').childNodes;
-                for (let cell of filterCells) {
-                    cell.firstChild.innerHTML = '0';
-                    cell.classList.remove('highlighted');
+                    let filterCells = document.getElementById('filter-array-div').childNodes;
+                    for (let cell of filterCells) {
+                        cell.firstChild.innerHTML = '0';
+                        cell.classList.remove('highlighted');
+                    }
                 }
             }
 
             document.getElementById('add-element-button').onclick = () => {
-                if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
-                    if (!addedElementsList.includes(parseInt(document.getElementById('add-element-input').value))) {
-                        addedElementsList.push(parseInt(document.getElementById('add-element-input').value));
-                        document.getElementById('text-area-with-list-of-added-elements').innerHTML += 
-                                    addedElementsList.length + ":  " + parseInt(document.getElementById('add-element-input').value) + "\n";
+                if (!visualizationInProcess) {
+                    if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
+                        if (!addedElementsList.includes(parseInt(document.getElementById('add-element-input').value))) {
+                            addedElementsList.push(parseInt(document.getElementById('add-element-input').value));
+                            document.getElementById('text-area-with-list-of-added-elements').innerHTML += 
+                                        addedElementsList.length + ":  " + parseInt(document.getElementById('add-element-input').value) + "\n";
+                        }
+                        changeValuesInCellsAfterAddingElement(hashFunctions, filterSize);
                     }
-                    changeValuesInCellsAfterAddingElement(hashFunctions, filterSize);
                 }
             }
             document.getElementById('check-element-availability-button').onclick = () => {
-                if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
-                    checkElementAvailability(hashFunctions, addedElementsList);
+                if (!visualizationInProcess) {
+                    if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
+                        checkElementAvailability(hashFunctions, addedElementsList);
+                    }
                 }
             }
         }
@@ -626,6 +640,10 @@ function changeTextInPseudocodeAfterCheckingElementAvailability() {
  * @param {Array} addedElementsList list of elements that were added to filter
  */
 function checkElementAvailability(hashFunctions, addedElementsList) {
+    visualizationInProcess = true;
+
+    let speedVisualization = document.getElementById('input-range-speed').value;
+
     changeTextInPseudocodeAfterCheckingElementAvailability();
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
@@ -661,7 +679,8 @@ function checkElementAvailability(hashFunctions, addedElementsList) {
                 document.getElementById('pseudocode-check-element-print-false').classList.remove('highlighted-pseudocode');
                 document.getElementById('pseudocode-check-element-print-cant-say').classList.remove('highlighted-pseudocode');
             }, 2000);
-            clearTimeout(timerIdGlobalInterval);
+            visualizationInProcess = false;
+            clearInterval(timerIdGlobalInterval);
         }
         let func = hashFunctions[indexForFunctionDivs];
         let filterIndex = func(value)[0] % filterSize;
@@ -721,7 +740,7 @@ function checkElementAvailability(hashFunctions, addedElementsList) {
                             ctx.clearRect(0, 0, 1650, 942);
                             document.getElementById('pseudocode-check-element-cell-is-zero').classList.remove('highlighted-pseudocode');
                             document.getElementById('pseudocode-check-element-check-cell-is-zero').classList.remove('highlighted-pseudocode');
-                        }, document.getElementById('input-range-speed').value / 3);
+                        }, speedVisualization / 3);
                         wasInFilter = false;
                     } else {
                         cell.classList.add('green-background');
@@ -729,15 +748,15 @@ function checkElementAvailability(hashFunctions, addedElementsList) {
                             cell.classList.remove('green-background');
                             ctx.clearRect(0, 0, 1650, 942);
                             document.getElementById('pseudocode-check-element-check-cell-is-zero').classList.remove('highlighted-pseudocode');
-                        }, document.getElementById('input-range-speed').value / 3);
+                        }, speedVisualization / 3);
                     }
-                }, document.getElementById('input-range-speed').value / 2);
+                }, speedVisualization / 2);
                 break;
             }
             ++indexForFilterCells;
         }
         ++indexForFunctionDivs;
-    }, document.getElementById('input-range-speed').value);
+    }, speedVisualization);
 }
 
 /**
@@ -770,6 +789,10 @@ function changeTextInPseudocodeAfterAddingElement() {
  * @param {Array} hashFunctions list of hash functions
  */
 function changeValuesInCellsAfterAddingElement(hashFunctions) {
+    visualizationInProcess = true;
+
+    let speedVisualization = document.getElementById('input-range-speed').value;
+
     changeTextInPseudocodeAfterAddingElement();
     ctx = document.getElementById("canvasArrows").getContext("2d");
 
@@ -838,17 +861,18 @@ function changeValuesInCellsAfterAddingElement(hashFunctions) {
                         setTimeout(() => {
                             ctx.clearRect(0, 0, 1650, 942);
                             document.getElementById('pseudocode-add-element-assign-filter').classList.remove('highlighted-pseudocode');
-                        }, document.getElementById('input-range-speed').value / 3);
-                    }, document.getElementById('input-range-speed').value / 2);
+                        }, speedVisualization / 3);
+                    }, speedVisualization / 2);
                     break;
                 }
                 ++indexForCell;
             }
             ++indexForFunctionDivs;
             if (indexForFunctionDivs == hashFunctions.length) {
+                visualizationInProcess = false;
                 clearInterval(timerId);
             }
-    }, document.getElementById('input-range-speed').value);
+    }, speedVisualization);
 }
 
 /**
