@@ -111,6 +111,20 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             createButtonCheckElementAvailability();
             createShowAddedElementsButton();
 
+            // After clicking button 'buttonClearFilter' all elements from
+            // filter would be deleted.
+            let buttonClearFilter = createButtonClearFilter();
+            buttonClearFilter.onclick = () => {
+                addedElementsList = [];
+                document.getElementById('text-area-with-list-of-added-elements').innerHTML = "";
+
+                let filterCells = document.getElementById('filter-array-div').childNodes;
+                for (let cell of filterCells) {
+                    cell.firstChild.innerHTML = '0';
+                    cell.classList.remove('highlighted');
+                }
+            }
+
             document.getElementById('add-element-button').onclick = () => {
                 if (document.getElementById('add-element-input').style.borderColor != "red" && document.getElementById('add-element-input').value != "") {
                     if (!addedElementsList.includes(parseInt(document.getElementById('add-element-input').value))) {
@@ -128,6 +142,16 @@ function addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterS
             }
         }
     });
+}
+
+function createButtonClearFilter() {
+    let buttonClearFilter = document.createElement('button');
+    buttonClearFilter.className = "button-clear-filter";
+    buttonClearFilter.id = "button-clear-filter";
+    buttonClearFilter.innerHTML = "Clear filter";
+    document.getElementById('playground-main').appendChild(buttonClearFilter);
+
+    return buttonClearFilter;
 }
 
 function isFloat(n){

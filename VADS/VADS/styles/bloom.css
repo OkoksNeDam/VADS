@@ -5,6 +5,11 @@
     right: 5px;
     top: 5px;
     height: 100px;
+    background-color: rgb(126, 125, 125);
+}
+
+.bloom-filter-carousel-element:hover {
+    border: 1px solid white;
 }
 
 .bloom-filter-carousel-element:hover {
@@ -379,4 +384,18 @@
     margin-top: -30px;
     margin-left: -55px;
     font-weight: 600;
+}
+
+.button-clear-filter {
+    position: absolute;
+    top: 50%;
+    right: 470px;
+    height: 30px;
+    width: 100px;
+    margin-top: -14px;
+    background-color: rgb(75, 87, 69);
+}
+
+.button-clear-filter:hover {
+    cursor: pointer;
 }

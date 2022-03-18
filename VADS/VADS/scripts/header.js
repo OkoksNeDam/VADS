@@ -30,6 +30,7 @@
     divFilterSize.innerHTML = 'Filter size: ';
     divFilterSize.className = 'div-filter-size';
     let inputFilterSize = document.createElement('input');
+    inputFilterSize.className = "input-filter-size-header";
     inputFilterSize.style = "background-color: rgb(122, 120, 120)";
     inputFilterSize.placeholder = 'your number';
     divFilterSize.appendChild(inputFilterSize);
