@@ -27,7 +27,7 @@ function addInputRangeForSpeedVisualization(elementsPlaygroundFooter) {
     inputRangeSpeedVisual.max = "3000";
     inputRangeSpeedVisual.step = "any";
 
-    shellForInputRangeSpeed.innerHTML = 'Speed visualization:';
+    shellForInputRangeSpeed.innerHTML = '<i>Speed visualization:</i>';
 
     let subIndeciesForSpeedRange = document.createElement('div');
     subIndeciesForSpeedRange.className = 'indecies-for-speed-range';

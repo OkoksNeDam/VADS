@@ -195,6 +195,7 @@ function createZoneForBarChart() {
     labelForFilterSizeBarChart.style.top = '40px';
     labelForFilterSizeBarChart.innerHTML = "Filter Bloom size:";
     labelForFilterSizeBarChart.classList.add('hide-element');
+    labelForFilterSizeBarChart.style.fontStyle = "italic";
     zoneForBarChart.appendChild(labelForFilterSizeBarChart);
 
     // Input for filter size for bar chart.
@@ -225,6 +226,7 @@ function createZoneForBarChart() {
     labelNumberOfHashFunctionsForBarChart.style.top = '90px';
     labelNumberOfHashFunctionsForBarChart.innerHTML = "Number of hash functions:";
     labelNumberOfHashFunctionsForBarChart.classList.add('hide-element');
+    labelNumberOfHashFunctionsForBarChart.style.fontStyle = "italic";
     zoneForBarChart.appendChild(labelNumberOfHashFunctionsForBarChart);
 
     // Input for number of hash functions for bar chart.
@@ -255,6 +257,7 @@ function createZoneForBarChart() {
     labelNumberOfElementsToAdd.style.top = '140px';
     labelNumberOfElementsToAdd.innerHTML = "Number of elements to add:";
     labelNumberOfElementsToAdd.classList.add('hide-element');
+    labelNumberOfElementsToAdd.style.fontStyle = "italic";
     zoneForBarChart.appendChild(labelNumberOfElementsToAdd);
 
     // Input number of elements to add to filter for bar chart.
@@ -286,6 +289,7 @@ function createZoneForBarChart() {
     labelNumberOfElementsToCheck.style.top = '195px';
     labelNumberOfElementsToCheck.innerHTML = "Number of elements to check:";
     labelNumberOfElementsToCheck.classList.add('hide-element');
+    labelNumberOfElementsToCheck.style.fontStyle = "italic";
     zoneForBarChart.appendChild(labelNumberOfElementsToCheck);
 
     // Input number of elements to check avaliability in filter for bar chart.
@@ -341,7 +345,8 @@ function createZoneForBarChart() {
     let labelExplainingBarChart = document.createElement('label');
     labelExplainingBarChart.style.position = 'absolute';
     labelExplainingBarChart.style.top = '300px';
-    labelExplainingBarChart.innerHTML = "After generating the filter, the number of elements entered in the third field will be added to it, each element is generated randomly.<br><br>After that, elements are generated, the number of which is equal to the value entered in the fourth field. These elements are checked to see if they are in the filter or not.";
+    labelExplainingBarChart.innerHTML = "First, a filter is created, after which randomly generated numbers are added to it, the number of which is equal to the value in the third field.<br><br>After that, new numbers are randomly generated (their number is equal to the value in the fourth field), which are checked for belonging to the filter.";
+    labelExplainingBarChart.style.fontStyle = "italic";
     labelExplainingBarChart.classList.add('hide-element');
     zoneForBarChart.appendChild(labelExplainingBarChart);
 

@@ -84,3 +84,11 @@ body {
     top: 10%;
     bottom: 20%;
 }
+
+.bloom-filter-description {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    top: 15%;
+}

@@ -17,7 +17,7 @@
       VADS
     </div>
     <div class="elements-carousel">
-      <div class="bloom-filter-carousel-element" id="bloom-filter-carousel-element">
+      <div class="bloom-filter-carousel-element" id="bloom-filter-carousel-element" data-toggle="tooltip">
         <div class="bloom-filter-picture" id="bloom-filter-picture">
           <img src="images/bloom.jpg" width="86px" height="88px">
         </div>
@@ -25,6 +25,19 @@
           <b>BLOOM FILTER</b><br>
           Probabilistic data structure
         </div>
+      </div>
+      <div class="bloom-filter-description" id="bloom-filter-description" style="display: none;">
+        <h3>Description</h3>
+        The Bloom filter is a bitmap of <b>m</b> bits. At the very beginning, the user defines <b>k</b> independent hash functions, each of which is mapped to a filter, that is, to a bit array.
+        If the function mapped to the i-th cell, the i-th bit becomes equal to <b>one</b>.<br>
+        Optimal number of hash functions: (m/n)ln2 ≈ 0.6931(m/n).
+        <h3>Use cases</h3>
+        Bloom filter allows you to determine that the element is <b>not</b> included in the set.For example, if a database is accessed, then the filter can say with <b>100%</b> probability that the element is <b>not</b> there.
+        <h3>Output cases</h3>
+        There are <b>three</b> possible outputs: the element is <b>definitely not</b> in the filter, the element <b>may be</b> present, or a <b>false positive</b> (occurs when the filter says that the element may be present, but it was not added).
+        <h3>Probabilities</h3>
+        False positive probability: (1-e<sup>-kn/m</sup></sup>)<sup>k</sup><br>
+        False alarm probability:    2<sup>-k</sup> ≈ 0.6185<sup>m/n</sup>, where k - number of functions, m - filter size, n - number of added elements.
       </div>
     </div>
   </div>
