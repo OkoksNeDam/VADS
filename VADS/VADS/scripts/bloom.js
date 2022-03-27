@@ -684,7 +684,9 @@ function checkElementAvailability(hashFunctions, addedElementsList) {
                 document.getElementById('pseudocode-check-element-print-false').classList.remove('highlighted-pseudocode');
                 document.getElementById('pseudocode-check-element-print-cant-say').classList.remove('highlighted-pseudocode');
             }, 2000);
-            visualizationInProcess = false;
+            setTimeout(() => {
+                visualizationInProcess = false; 
+            }, speedVisualization / 2);
             clearInterval(timerIdGlobalInterval);
         }
         let func = hashFunctions[indexForFunctionDivs];
@@ -874,7 +876,9 @@ function changeValuesInCellsAfterAddingElement(hashFunctions) {
             }
             ++indexForFunctionDivs;
             if (indexForFunctionDivs == hashFunctions.length) {
-                visualizationInProcess = false;
+                setTimeout(() => {
+                    visualizationInProcess = false; 
+                }, speedVisualization / 2);
                 clearInterval(timerId);
             }
     }, speedVisualization);
