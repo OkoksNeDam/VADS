@@ -310,29 +310,44 @@
 
 .input-filter-size-for-bar-chart {
     position: absolute;
-    top: 63px;
+    top: 53px;
     width: 373px;
     background-color: rgb(122, 120, 120);
 }
 
 .input-number-of-hash-functions-for-bar-chart {
     position: absolute;
-    top: 110px;
+    top: 98px;
     width: 373px;
     background-color: rgb(122, 120, 120);
 }
 
 .input-number-of-elements-to-add-for-bar-chart {
     position: absolute;
-    top: 165px;
+    top: 142px;
     width: 373px;
     background-color: rgb(122, 120, 120);
 }
 
 .input-number-of-elements-to-check-for-bar-chart {
     position: absolute;
-    top: 220px;
+    top: 186px;
     width: 373px;
+    background-color: rgb(122, 120, 120);
+}
+
+.input-left-border-number-for-bar-chart {
+    position: absolute;
+    top: 230px;
+    width: 180px;
+    background-color: rgb(122, 120, 120);
+}
+
+.input-right-border-number-for-bar-chart {
+    position: absolute;
+    right: 0px;
+    top: 230px;
+    width: 180px;
     background-color: rgb(122, 120, 120);
 }
 

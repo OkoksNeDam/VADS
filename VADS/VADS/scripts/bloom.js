@@ -192,7 +192,7 @@ function createZoneForBarChart() {
 
     let labelForFilterSizeBarChart = document.createElement('label');
     labelForFilterSizeBarChart.style.position = 'absolute';
-    labelForFilterSizeBarChart.style.top = '40px';
+    labelForFilterSizeBarChart.style.top = '34px';
     labelForFilterSizeBarChart.innerHTML = "Filter Bloom size:";
     labelForFilterSizeBarChart.classList.add('hide-element');
     labelForFilterSizeBarChart.style.fontStyle = "italic";
@@ -223,7 +223,7 @@ function createZoneForBarChart() {
 
     let labelNumberOfHashFunctionsForBarChart = document.createElement('label');
     labelNumberOfHashFunctionsForBarChart.style.position = 'absolute';
-    labelNumberOfHashFunctionsForBarChart.style.top = '90px';
+    labelNumberOfHashFunctionsForBarChart.style.top = '78px';
     labelNumberOfHashFunctionsForBarChart.innerHTML = "Number of hash functions:";
     labelNumberOfHashFunctionsForBarChart.classList.add('hide-element');
     labelNumberOfHashFunctionsForBarChart.style.fontStyle = "italic";
@@ -254,7 +254,7 @@ function createZoneForBarChart() {
 
     let labelNumberOfElementsToAdd = document.createElement('label');
     labelNumberOfElementsToAdd.style.position = 'absolute';
-    labelNumberOfElementsToAdd.style.top = '140px';
+    labelNumberOfElementsToAdd.style.top = '123px';
     labelNumberOfElementsToAdd.innerHTML = "Number of elements to add:";
     labelNumberOfElementsToAdd.classList.add('hide-element');
     labelNumberOfElementsToAdd.style.fontStyle = "italic";
@@ -286,7 +286,7 @@ function createZoneForBarChart() {
 
     let labelNumberOfElementsToCheck = document.createElement('label');
     labelNumberOfElementsToCheck.style.position = 'absolute';
-    labelNumberOfElementsToCheck.style.top = '195px';
+    labelNumberOfElementsToCheck.style.top = '167px';
     labelNumberOfElementsToCheck.innerHTML = "Number of elements to check:";
     labelNumberOfElementsToCheck.classList.add('hide-element');
     labelNumberOfElementsToCheck.style.fontStyle = "italic";
@@ -316,6 +316,62 @@ function createZoneForBarChart() {
         }
     });
 
+    let labelNumbersRange = document.createElement('label');
+    labelNumbersRange.style.position = 'absolute';
+    labelNumbersRange.style.top = '210px';
+    labelNumbersRange.innerHTML = "Range for elements:";
+    labelNumbersRange.classList.add('hide-element');
+    labelNumbersRange.style.fontStyle = "italic";
+    zoneForBarChart.appendChild(labelNumbersRange);
+
+    // Input left border for number for bar chart
+    let inputLeftBorderForNumbers = document.createElement('input');
+    inputLeftBorderForNumbers.className = 'input-left-border-number-for-bar-chart';
+    inputLeftBorderForNumbers.id = 'input-left-border-number-for-bar-chart';
+    inputLeftBorderForNumbers.classList.add('hide-element');
+    inputLeftBorderForNumbers.placeholder = "left border";
+    zoneForBarChart.appendChild(inputLeftBorderForNumbers);
+
+    inputLeftBorderForNumbers.onblur = () => {
+        if (inputLeftBorderForNumbers.value != "" && (isFloat(parseFloat(inputLeftBorderForNumbers.value)) ||
+            !Number.isInteger(parseInt(inputLeftBorderForNumbers.value)) || 
+             String(parseInt(inputLeftBorderForNumbers.value)).length > 16 || parseInt(inputLeftBorderForNumbers.value) < 0) &&
+             inputLeftBorderForNumbers.style.borderColor != "red") {
+                inputLeftBorderForNumbers.style.borderColor = "red";
+        }
+    }
+
+    inputLeftBorderForNumbers.addEventListener('click', () => {
+        if (inputLeftBorderForNumbers.style.borderColor == "red") {
+            inputLeftBorderForNumbers.style.borderColor = "";
+            inputLeftBorderForNumbers.value = "";
+        }
+    });
+
+    // Input right border for number for bar chart
+    let inputRightBorderForNumbers = document.createElement('input');
+    inputRightBorderForNumbers.className = 'input-right-border-number-for-bar-chart';
+    inputRightBorderForNumbers.id = 'input-right-border-number-for-bar-chart';
+    inputRightBorderForNumbers.classList.add('hide-element');
+    inputRightBorderForNumbers.placeholder = "right border";
+    zoneForBarChart.appendChild(inputRightBorderForNumbers);
+
+    inputRightBorderForNumbers.onblur = () => {
+        if (inputRightBorderForNumbers.value != "" && (isFloat(parseFloat(inputRightBorderForNumbers.value)) ||
+            !Number.isInteger(parseInt(inputRightBorderForNumbers.value)) || 
+             String(parseInt(inputRightBorderForNumbers.value)).length > 16) &&
+             inputRightBorderForNumbers.style.borderColor != "red") {
+                inputRightBorderForNumbers.style.borderColor = "red";
+        }
+    }
+
+    inputRightBorderForNumbers.addEventListener('click', () => {
+        if (inputRightBorderForNumbers.style.borderColor == "red") {
+            inputRightBorderForNumbers.style.borderColor = "";
+            inputRightBorderForNumbers.value = "";
+        }
+    });
+
     // After clicking this button bar chart would be redrawing.
     let generateBloomFilterForBarChartButton = document.createElement('button');
     generateBloomFilterForBarChartButton.className = 'button-to-build-filter-bar-chart';
@@ -328,9 +384,12 @@ function createZoneForBarChart() {
 
     generateBloomFilterForBarChartButton.onclick = () => {
         if (!(inputFilterSizeForBarChart.value == "" || inputNumberOfHashForBarChart.value == "" || 
-              inputNumberOfElementsToAddForBarChart.value == "" || inputNumberOfElementsToCheckForBarChart.value == "" || 
+              inputNumberOfElementsToAddForBarChart.value == "" || inputNumberOfElementsToCheckForBarChart.value == "" ||
+              inputLeftBorderForNumbers.value == "" || inputRightBorderForNumbers.value == "" ||
               inputFilterSizeForBarChart.style.borderColor == "red" || inputNumberOfHashForBarChart.style.borderColor == "red" || 
-              inputNumberOfElementsToAddForBarChart.style.borderColor == "red" || inputNumberOfElementsToCheckForBarChart.style.borderColor == "red")) {
+              inputNumberOfElementsToAddForBarChart.style.borderColor == "red" || inputNumberOfElementsToCheckForBarChart.style.borderColor == "red" || 
+              inputLeftBorderForNumbers.style.borderColor == "red" || inputRightBorderForNumbers.style.borderColor == "red" ||
+              parseInt(inputLeftBorderForNumbers.value) > parseInt(inputRightBorderForNumbers.value))) {
             let numberOfFalsePositive, numberOfNegative, numberOfPositive;
             [numberOfFalsePositive, numberOfNegative, numberOfPositive] = getresultsFromBloomFilterForBarChart(inputFilterSizeForBarChart.value, inputNumberOfHashForBarChart.value,
             inputNumberOfElementsToAddForBarChart.value, inputNumberOfElementsToCheckForBarChart.value);
@@ -351,6 +410,9 @@ function createZoneForBarChart() {
     zoneForBarChart.appendChild(labelExplainingBarChart);
 
     showZoneForBatChartButton.onclick = () => {
+        inputRightBorderForNumbers.classList.toggle('hide-element');
+        inputLeftBorderForNumbers.classList.toggle('hide-element');
+        labelNumbersRange.classList.toggle('hide-element');
         labelForFilterSizeBarChart.classList.toggle('hide-element');
         inputFilterSizeForBarChart.classList.toggle('hide-element');
         labelNumberOfHashFunctionsForBarChart.classList.toggle('hide-element');
@@ -380,13 +442,15 @@ function createZoneForBarChart() {
  */
 function getresultsFromBloomFilterForBarChart(filterSizeBarChart, numberOfFunctions, numberOfElementsToAdd, numberOfElementsToCheck) {
     let hashFunctions = (new UniversalHashFunctions(numberOfFunctions)).generateFunctions();
+    let minRangeForNumber = document.getElementById('input-left-border-number-for-bar-chart').value;
+    let maxRangeForNumber = document.getElementById('input-right-border-number-for-bar-chart').value;
     let addedElements = [];
     let filter = [];
     for (let index = 0; index < filterSizeBarChart; index++) {
         filter[index] = 0;
     }
     for (let indexNewElement = 0; indexNewElement < numberOfElementsToAdd; ++indexNewElement) {
-        let newElement = Math.floor(Math.random() * numberOfElementsToAdd * 1000);
+        let newElement = Math.floor(Math.random() * (maxRangeForNumber - minRangeForNumber) + minRangeForNumber);
         if (!addedElements.includes(newElement)) {
             addedElements.push(newElement);
         }
@@ -399,7 +463,7 @@ function getresultsFromBloomFilterForBarChart(filterSizeBarChart, numberOfFuncti
     let countFalsePositive = 0, countNegative = 0, countPositive = 0;
     let definatelyNotInFilter = false;
     for (let indexCheckelement = 0; indexCheckelement < numberOfElementsToCheck; indexCheckelement++) {
-        let newElement = Math.floor(Math.random() * numberOfElementsToAdd * 1000);
+        let newElement = Math.floor(Math.random() * (maxRangeForNumber - minRangeForNumber) + minRangeForNumber);
         definatelyNotInFilter = false;
         for (let indexHashFunction = 0; indexHashFunction < hashFunctions.length; ++indexHashFunction) {
             let currentFunction = hashFunctions[indexHashFunction];
