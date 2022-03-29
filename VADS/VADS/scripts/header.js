@@ -16,7 +16,23 @@
     // Add button for building the filter.
     let buttonBuildFilter = createButtonBuldingTheFilter(elementsPlaygroundCap);
 
+    labelRestrictionsForFilterAndFunctions(elementsPlaygroundCap);
+
     addEventWhenButtonBuildFilterWasClicked(buttonBuildFilter, inputFilterSize, inputNumberOfHash);
+}
+
+/**
+ * Label that shows restriction for filter size.
+ * @param {object} elementsPlaygroundCap div containing header elements
+ */
+function labelRestrictionsForFilterAndFunctions(elementsPlaygroundCap) {
+    let divLabelRestrictionsForFilterSize = document.createElement('div');
+    divLabelRestrictionsForFilterSize.innerHTML = "<i>restrictions: 1 ≤ value ≤ 13</i><br><br><br><i>restrictions: 1 ≤ value ≤ 13</i>";
+    divLabelRestrictionsForFilterSize.style.position = "absolute";
+    divLabelRestrictionsForFilterSize.style.left = "300px";
+    divLabelRestrictionsForFilterSize.style.top = "9px";
+    divLabelRestrictionsForFilterSize.style.color = "rgb(48, 184, 246, 0.55)";
+    elementsPlaygroundCap.appendChild(divLabelRestrictionsForFilterSize);
 }
 
 /**
