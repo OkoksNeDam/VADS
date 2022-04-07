@@ -1,5 +1,5 @@
 body {
-    background-color: grey;
+    background-color: rgb(128, 108, 241);
 }
 
 .main-menu {
@@ -32,7 +32,7 @@ body {
     font-size: 50px;
     text-align: center;
     line-height: 90px;
-    background: linear-gradient(to bottom right, grey, rgb(104, 103, 103));
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
 }
 
 .elements-carousel {

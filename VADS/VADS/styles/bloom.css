@@ -5,11 +5,11 @@
     right: 5px;
     top: 5px;
     height: 100px;
-    background-color: rgb(126, 125, 125);
+    background: linear-gradient(to bottom right, grey, rgb(76, 47, 241));
 }
 
 .bloom-filter-carousel-element:hover {
-    background-color: rgb(73, 73, 73);
+    background: rgb(13, 150, 230);
 }
 
 .bloom-filter-carousel-element:hover {
@@ -50,7 +50,7 @@
     height: 50px;
     position: absolute;
     text-align: center;
-    background-color: rgb(122, 120, 120);
+    background-color: rgb(71, 117, 241);
 }
 
 .hash-function-div {
@@ -59,7 +59,7 @@
     height: 50px;
     position: absolute;
     text-align: center;
-    background-color: rgb(122, 120, 120);
+    background-color: rgb(71, 117, 241);
 }
 
 .filter-cell-div-inner-text {
@@ -87,7 +87,7 @@
     width: 105.5px;
     height: 35px;
     margin-top: -52px;
-    background-color: rgb(122, 120, 120);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
     font-size: 12px;
 }
 
@@ -102,7 +102,7 @@
     width: 105.5px;
     height: 35px;
     margin-bottom: -46px;
-    background-color: rgb(122, 120, 120);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
     font-size: 12px;
 }
 
@@ -125,11 +125,12 @@
     top: 50%;
     width: 100px;
     margin-top: -13px;
-    background-color: grey;
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .highlighted {
-    background-color: rgb(196, 190, 190);
+    background-color: rgb(4, 214, 251);
 }
 
 .red-background {
@@ -170,7 +171,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background-color: rgb(122, 120, 120);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
 }
 
 .show-added-elements-button:hover {
@@ -185,7 +186,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background-color: rgb(122, 120, 120);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
 }
 
 .change-function-parameters-button:hover {
@@ -202,7 +203,7 @@
     font-size: 17px;
     border: 1px solid #000;
     bottom: 10px;
-    background-color: rgb(122, 120, 120);
+    background-color: rgb(10, 234, 241);
     resize: none;
     pointer-events: none;
 }
@@ -219,7 +220,8 @@
     width: 194px;
     height: 20px;
     font-size: 13px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .a-parameter-to-change-input {
@@ -230,7 +232,8 @@
     width: 194px;
     height: 20px;
     font-size: 13px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .b-parameter-to-change-input {
@@ -241,7 +244,8 @@
     width: 194px;
     height: 20px;
     font-size: 13px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .p-parameter-to-change-input {
@@ -252,7 +256,8 @@
     width: 194px;
     height: 20px;
     font-size: 13px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .accespt-changes-to-function-button {
@@ -263,7 +268,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background-color: rgb(75, 87, 69);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241));
 }
 
 .accespt-changes-to-function-button:hover {
@@ -278,7 +283,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background-color: rgb(75, 87, 69);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241));
 }
 
 .change-parameters-of-function-randomly:hover {
@@ -301,7 +306,7 @@
     top: 0px;
     right: 0px;
     height: 30px;
-    background-color: rgb(122, 120, 120);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
 }
 
 .show-zone-bar-chart-button:hover {
@@ -312,35 +317,40 @@
     position: absolute;
     top: 53px;
     width: 373px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .input-number-of-hash-functions-for-bar-chart {
     position: absolute;
     top: 98px;
     width: 373px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .input-number-of-elements-to-add-for-bar-chart {
     position: absolute;
     top: 142px;
     width: 373px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .input-number-of-elements-to-check-for-bar-chart {
     position: absolute;
     top: 186px;
     width: 373px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .input-left-border-number-for-bar-chart {
     position: absolute;
     top: 230px;
     width: 180px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .input-right-border-number-for-bar-chart {
@@ -348,7 +358,8 @@
     right: 0px;
     top: 230px;
     width: 180px;
-    background-color: rgb(122, 120, 120);
+    background-color: white;
+    border: 1.5px solid black;
 }
 
 .button-to-build-filter-bar-chart {
@@ -356,7 +367,7 @@
     top: 260px;
     height: 30px;
     width: 379px;
-    background-color: rgb(75, 87, 69);
+    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241));
 }
 
 .button-to-build-filter-bar-chart:hover {

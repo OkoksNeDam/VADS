@@ -8,6 +8,17 @@ function fillTheFooterBloomFilter() {
     document.getElementById('playground-footer-title').style.display = "none";
 
     addInputRangeForSpeedVisualization(elementsPlaygroundFooter);
+    createLabelHintAboutHashFunctions(elementsPlaygroundFooter);
+}
+
+function createLabelHintAboutHashFunctions(elementsPlaygroundFooter) {
+    let labelFooterHint = document.createElement('label');
+    labelFooterHint.innerHTML = "When hovering over a hash function, you can see how the final value is calculated!"
+    labelFooterHint.style.position = "absolute";
+    labelFooterHint.style.left = "10px";
+    labelFooterHint.style.top = "100px";
+    labelFooterHint.style.color = "white";
+    elementsPlaygroundFooter.appendChild(labelFooterHint);
 }
 
 /**
