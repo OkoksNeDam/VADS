@@ -31,7 +31,7 @@ function labelRestrictionsForFilterAndFunctions(elementsPlaygroundCap) {
     divLabelRestrictionsForFilterSize.style.position = "absolute";
     divLabelRestrictionsForFilterSize.style.left = "300px";
     divLabelRestrictionsForFilterSize.style.top = "9px";
-    divLabelRestrictionsForFilterSize.style.color = "rgb(48, 184, 246, 0.55)";
+    divLabelRestrictionsForFilterSize.style.color = "rgb(48, 184, 246, 0.95)";
     elementsPlaygroundCap.appendChild(divLabelRestrictionsForFilterSize);
 }
 
