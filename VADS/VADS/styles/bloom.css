@@ -5,11 +5,11 @@
     right: 5px;
     top: 5px;
     height: 100px;
-    background: linear-gradient(to bottom right, grey, rgb(76, 47, 241));
+    background-color: rgb(129, 107, 81);
 }
 
 .bloom-filter-carousel-element:hover {
-    background: rgb(13, 150, 230);
+    background-color: rgb(170, 165, 158);
 }
 
 .bloom-filter-carousel-element:hover {
@@ -50,7 +50,7 @@
     height: 50px;
     position: absolute;
     text-align: center;
-    background-color: rgb(71, 117, 241);
+    background-color: rgb(134, 121, 103);
 }
 
 .hash-function-div {
@@ -59,7 +59,7 @@
     height: 50px;
     position: absolute;
     text-align: center;
-    background-color: rgb(71, 117, 241);
+    background-color: rgb(134, 121, 103);
 }
 
 .filter-cell-div-inner-text {
@@ -87,7 +87,7 @@
     width: 105.5px;
     height: 35px;
     margin-top: -52px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
+    background-color: rgb(117, 90, 54);
     font-size: 12px;
 }
 
@@ -102,7 +102,7 @@
     width: 105.5px;
     height: 35px;
     margin-bottom: -46px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
+    background-color: rgb(117, 90, 54);
     font-size: 12px;
 }
 
@@ -130,7 +130,7 @@
 }
 
 .highlighted {
-    background-color: rgb(4, 214, 251);
+    background-color: rgb(190, 178, 160);
 }
 
 .red-background {
@@ -171,7 +171,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
+    background-color: rgb(117, 90, 54);
 }
 
 .show-added-elements-button:hover {
@@ -186,7 +186,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
+    background-color: rgb(117, 90, 54);
 }
 
 .change-function-parameters-button:hover {
@@ -203,7 +203,7 @@
     font-size: 17px;
     border: 1px solid #000;
     bottom: 10px;
-    background-color: rgb(10, 234, 241);
+    background-color: rgb(93, 80, 62, 0.3);
     resize: none;
     pointer-events: none;
 }
@@ -268,7 +268,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241));
+    background-color: rgb(98, 80, 57);
 }
 
 .accespt-changes-to-function-button:hover {
@@ -283,7 +283,7 @@
     width: 200px;
     height: 30px;
     font-size: 13px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241));
+    background-color: rgb(98, 80, 57);
 }
 
 .change-parameters-of-function-randomly:hover {
@@ -306,7 +306,7 @@
     top: 0px;
     right: 0px;
     height: 30px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(76, 47, 241));
+    background-color: rgb(117, 90, 54);
 }
 
 .show-zone-bar-chart-button:hover {
@@ -367,7 +367,7 @@
     top: 260px;
     height: 30px;
     width: 379px;
-    background: linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241));
+    background-color: rgb(98, 80, 57);
 }
 
 .button-to-build-filter-bar-chart:hover {
@@ -419,7 +419,7 @@
     height: 30px;
     width: 100px;
     margin-top: -14px;
-    background-color: rgb(75, 87, 69);
+    background-color: rgb(98, 80, 57);
 }
 
 .button-clear-filter:hover {

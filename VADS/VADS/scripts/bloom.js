@@ -163,7 +163,7 @@ function createButtonClearFilter() {
     buttonClearFilter.className = "button-clear-filter";
     buttonClearFilter.id = "button-clear-filter";
     buttonClearFilter.innerHTML = "Clear filter";
-    buttonClearFilter.style.background = "linear-gradient(to bottom right, rgb(10, 152, 187), rgb(41, 235, 241))"
+    buttonClearFilter.style.background = "background-color: rgb(98, 80, 57);"
     document.getElementById('playground-main').appendChild(buttonClearFilter);
 
     return buttonClearFilter;
